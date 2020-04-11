@@ -27,4 +27,19 @@ class Keyboard {
   }
 }
 
+/**
+ * Default Export
+ * @type {Keyboard}
+ */
 module.exports = new Keyboard();
+
+/**
+ * Key Map
+ */
+module.exports.KEYS = {
+  KEY_DOWN: 40,
+  KEY_UP: 38,
+  KEY_LEFT: 37,
+  KEY_RIGHT: 39,
+  KEY_SPACE: 32,
+};
