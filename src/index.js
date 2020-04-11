@@ -32,7 +32,12 @@ window.onload = function () {
 
     app.stage.addChild(block);
 
+    // Game Configs
+    const delaySpeed = 1800;
+    let startDate = new Date();
+
     app.ticker.add(() => {
+      const now = new Date();
       const keyPress = Keyboard.getKeyPress();
 
       if (keyPress === Keyboard.KEYS.KEY_UP) {
@@ -49,6 +54,12 @@ window.onload = function () {
 
       if (keyPress === Keyboard.KEYS.KEY_RIGHT) {
         block.move(1);
+      }
+
+      if ((now - startDate) >= delaySpeed) {
+        startDate = new Date();
+
+        block.fall();
       }
     });
   }

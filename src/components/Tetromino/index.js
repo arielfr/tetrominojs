@@ -33,6 +33,10 @@ class Tetromino extends PIXI.Container {
     this.position.set(this.position.x + (BLOCK_SIZE * delta), this.position.y);
   }
 
+  fall() {
+    this.position.set(this.position.x, (this.position.y + BLOCK_SIZE));
+  }
+
   rotate(delta) {
     this.currRotation = this.currRotation + delta;
 
