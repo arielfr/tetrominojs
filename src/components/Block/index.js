@@ -4,18 +4,20 @@ const { BLOCK_SIZE } = require('../../constants');
  * Black Class
  */
 class Block {
-  constructor(color, size = BLOCK_SIZE) {
-    this.el = this.draw(color, size);
+  constructor(texture, color, size = BLOCK_SIZE) {
+    this.el = this.draw(texture, size);
   }
 
-  draw(color, size) {
-    const graphics = new PIXI.Graphics();
+  draw(texture, size) {
+    const sprite = new PIXI.Sprite(texture);
 
-    graphics.lineStyle(1, 0, 1, 0);
-    graphics.beginFill(color, 1);
-    graphics.drawRect(0, 0, size, size);
+    sprite.position.x = 0;
+    sprite.position.y = 0;
 
-    return graphics;
+    sprite.width = size;
+    sprite.height = size;
+
+    return sprite;
   }
 }
 

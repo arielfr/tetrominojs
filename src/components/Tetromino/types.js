@@ -1,7 +1,7 @@
 module.exports = {
   I: {
     name: "I",
-    color: 0xff8000,
+    texture: 'block-i',
     size: 4,
     shapes: [
       [[0, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0]],
@@ -12,7 +12,7 @@ module.exports = {
   },
   J: {
     name: "J",
-    color: 0x2cc990,
+    texture: 'block-j',
     size: 3,
     shapes: [
       [[1, 0, 0], [1, 1, 1], [0, 0, 0]],
@@ -23,7 +23,7 @@ module.exports = {
   },
   L: {
     name: "L",
-    color: 0xf34344,
+    texture: 'block-l',
     size: 3,
     shapes: [
       [[0, 0, 1], [1, 1, 1], [0, 0, 0]],
@@ -34,7 +34,7 @@ module.exports = {
   },
   O: {
     name: "O",
-    color: 0xffdf00,
+    texture: 'block-o',
     size: 2,
     shapes: [
       [[1, 1], [1, 1]],
@@ -45,7 +45,7 @@ module.exports = {
   },
   S: {
     name: "S",
-    color: 0xccdce4,
+    texture: 'block-s',
     size: 3,
     shapes: [
       [[0, 1, 1], [1, 1, 0], [0, 0, 0]],
@@ -56,7 +56,7 @@ module.exports = {
   },
   T: {
     name: "T",
-    color: 0x008aff,
+    texture: 'block-t',
     size: 3,
     shapes: [
       [[0, 1, 0], [1, 1, 1], [0, 0, 0]],
@@ -67,7 +67,7 @@ module.exports = {
   },
   Z: {
     name: "Z",
-    color: 0xfcb941,
+    texture: 'block-z',
     size: 3,
     shapes: [
       [[1, 1, 0], [0, 1, 1], [0, 0, 0]],

@@ -11,6 +11,14 @@ window.onload = function () {
     resolution: 1,
   });
 
+  app.loader.add('block-i', 'images/I.png');
+  app.loader.add('block-j', 'images/J.png');
+  app.loader.add('block-l', 'images/L.png');
+  app.loader.add('block-o', 'images/O.png');
+  app.loader.add('block-s', 'images/S.png');
+  app.loader.add('block-t', 'images/T.png');
+  app.loader.add('block-z', 'images/Z.png');
+
   document.getElementById('game').appendChild(app.view);
 
   // When all the assets are loaded start the game
@@ -20,7 +28,7 @@ window.onload = function () {
   app.loader.load();
 
   function startGame () {
-    const block = new Tetromino();
+    const block = new Tetromino(app.loader.resources);
 
     app.stage.addChild(block);
 
