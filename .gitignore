@@ -1,0 +1,13 @@
+# Dependency directory
+node_modules
+
+# Webpack
+dist
+
+# Trash
+.DS_Store
+.idea
+*.iml
+
+.vs/*
+.vscode/*
