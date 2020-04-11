@@ -8,11 +8,14 @@ class Block extends PIXI.Container {
   constructor() {
     super();
 
-    const rand = randomBetween(1, 7);
-
-    console.log(Object.keys(types)[rand])
+    this.type = this.getRandomType();
 
     this.draw();
+  }
+
+  getRandomType() {
+    const rand = randomBetween(1, 7) - 1;
+    return Object.keys(types)[rand];
   }
 
   draw() {
