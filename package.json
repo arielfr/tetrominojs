@@ -1,7 +1,7 @@
 {
-  "name": "pixijs-boilerplate",
+  "name": "tetrominojs",
   "version": "1.0.0",
-  "description": "PixiJS Boilerplate",
+  "description": "Classic Tetris with PixiJS",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arielfr/pixijs-boilerplate.git"
+    "url": "git+https://github.com/arielfr/tetrominojs.git"
   },
   "author": "Ariel Rey",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/arielfr/pixijs-boilerplate/issues"
+    "url": "https://github.com/arielfr/tetrominojs/issues"
   },
-  "homepage": "https://github.com/arielfr/pixijs-boilerplate#readme",
+  "homepage": "https://github.com/arielfr/tetrominojs#readme",
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",

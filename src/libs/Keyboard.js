@@ -3,27 +3,32 @@
  */
 class Keyboard {
   constructor() {
-    this.keys = {};
+    this.key = null;
+
+    this.addEvents();
   }
 
   addEvents () {
     window.addEventListener('keydown', (event) => {
-      this.keys[event.keyCode] = true;
+      if (this.key === null) {
+        this.key = event.keyCode;
+      }
     });
 
     window.addEventListener('keyup', (event) => {
-      this.keys[event.keyCode] = false;
+      this.key = null;
     });
 
     return this;
   }
 
-  getKeys() {
-    return this.keys;
-  }
+  getKeyPress() {
+    const keyPress = this.key;
 
-  isKeyPress(keyCode) {
-    return this.getKeys()[keyCode];
+    // Once you get the key, remove it
+    this.key = null;
+
+    return keyPress;
   }
 }
 

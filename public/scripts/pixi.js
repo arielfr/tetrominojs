@@ -138,7 +138,7 @@ var PIXI = (function (exports) {
 	function invokeCallback(subscriber){
 	  var owner = subscriber.owner;
 	  var settled = owner.state_;
-	  var value = owner.data_;  
+	  var value = owner.data_;
 	  var callback = subscriber[settled];
 	  var promise = subscriber.then;
 
@@ -2570,7 +2570,7 @@ var PIXI = (function (exports) {
 	  }
 
 	  var len = qs.length;
-	  // maxKeys <= 0 means that we should not limit keys count
+	  // maxKeys <= 0 means that we should not limit key count
 	  if (maxKeys > 0 && len > maxKeys) {
 	    len = maxKeys;
 	  }
@@ -7390,7 +7390,7 @@ var PIXI = (function (exports) {
 	        // in ES8/ES2017, this would be really easy:
 	        // Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
 
-	        // get all the enumerable property keys
+	        // get all the enumerable property key
 	        var keys = Object.keys(source);
 
 	        // loop through properties
@@ -16805,7 +16805,7 @@ var PIXI = (function (exports) {
 
 	        /**
 	         * A cache of currently bound buffer,
-	         * contains only two members with keys ARRAY_BUFFER and ELEMENT_ARRAY_BUFFER
+	         * contains only two members with key ARRAY_BUFFER and ELEMENT_ARRAY_BUFFER
 	         * @member {Object.<number, PIXI.Buffer>}
 	         * @readonly
 	         */
