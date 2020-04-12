@@ -6,8 +6,8 @@ const Keyboard = require('./libs/Keyboard');
 
 window.onload = function () {
   const app = new PIXI.Application({
-    width: 750,
-    height: 750,
+    width: 400,
+    height: 700,
     backgroundColor: 0x1099bb,
     resolution: 1,
   });
@@ -35,14 +35,13 @@ window.onload = function () {
 
     app.stage.addChild(board);
 
-    // board.addChild(tetronimo);
+    board.add(tetronimo);
 
     // Game Configs
     const delaySpeed = 1800;
     let startDate = new Date();
 
     app.ticker.add(() => {
-      /*
       const now = new Date();
       const keyPress = Keyboard.getKeyPress();
 
@@ -67,7 +66,8 @@ window.onload = function () {
 
         tetronimo.fall();
       }
-      */
+
+      board.add(tetronimo);
     });
   }
 };
