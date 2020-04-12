@@ -39,10 +39,9 @@ class Board extends PIXI.Container {
     );
 
     let tetromRow = 0;
-    let tetromCol = 0;
 
     for (let row = 0; row < this.board.length; row++) {
-      tetromCol = 0;
+      let tetromCol = (tetromino.col < 0) ? Math.abs(tetromino.col) : 0;
       let found = false;
 
       for (let column = 0; column < this.board[row].length; column++) {
