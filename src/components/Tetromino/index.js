@@ -16,7 +16,7 @@ class Tetromino extends PIXI.Container {
 
     // Add the for blocks on the same position
     for (let i = 0; i < 4; i++) {
-      const block = new Block(resources[this.type.texture].texture, this.type.color, BLOCK_SIZE);
+      const block = new Block(resources[this.type.texture].texture, BLOCK_SIZE);
       this.blocks.push(block.el);
       this.addChild(block.el);
     }
