@@ -233,11 +233,34 @@ class Board extends PIXI.Container {
       }
     }
 
-    if ( (this.currTetromino.col >= (0 - colFirstHit)) && ( (this.currTetromino.col + colLastHit) < BOARD_WIDTH) ) {
-      return true;
-    } else {
+    if (!( (this.currTetromino.col >= (0 - colFirstHit)) && ( (this.currTetromino.col + colLastHit) < BOARD_WIDTH) )) {
       return false;
     }
+
+    let canMove = true;
+
+    let rowCheck = 0;
+
+    for (let row = this.currTetromino.row; (row < (this.currTetromino.row + currShape.length) && row < BOARD_HEIGHT); row++) {
+      let colCheck = 0;
+
+      for (let col = this.currTetromino.col; col < (this.currTetromino.col + this.currTetromino.type.size); col++) {
+        if (this.board[row][col] && currShape[rowCheck][colCheck]) {
+          canMove = false;
+          break;
+        }
+
+        colCheck++;
+      }
+
+      if (!canMove) {
+        break;
+      }
+
+      rowCheck++;
+    }
+
+    return canMove;
   }
 
   fusion() {

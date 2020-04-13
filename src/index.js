@@ -35,7 +35,7 @@ window.onload = function () {
 
     // Game Configs
     //const delaySpeed = 1800;
-    const delaySpeed = 500;
+    const delaySpeed = 300;
     let startDate = new Date();
 
     app.ticker.add(() => {
