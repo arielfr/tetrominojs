@@ -17,7 +17,11 @@ class Board extends PIXI.Container {
     );
 
     this.currTetromino = null;
+    this.tetrominos = [];
 
+    for (let i = 0; i < 5; i++) {
+      this.tetrominos.push(new Tetromino());
+    }
     this.init(resources);
     this.spawn();
   }
@@ -38,7 +42,14 @@ class Board extends PIXI.Container {
   }
 
   spawn() {
-    this.currTetromino = new Tetromino(this.res);
+    if (this.canSpawn()) {
+      const current = this.tetrominos.splice(0, 1);
+      this.tetrominos.push(new Tetromino());
+      this.currTetromino = current[0];
+    } else {
+      // Game Over
+    }
+
     this.update();
   }
 
@@ -261,6 +272,36 @@ class Board extends PIXI.Container {
     }
 
     return canMove;
+  }
+
+  canSpawn() {
+    const currTetromino = this.tetrominos[0];
+    const currShape = currTetromino.type.shapes[currTetromino.currRotation];
+
+    let canSpawn = true;
+
+    let rowCheck = 0;
+
+    for (let row = currTetromino.row; (row < (currTetromino.row + currShape.length) && row < BOARD_HEIGHT); row++) {
+      let colCheck = 0;
+
+      for (let col = currTetromino.col; col < (currTetromino.col + currTetromino.type.size); col++) {
+        if (this.board[row][col] && currShape[rowCheck][colCheck]) {
+          canSpawn = false;
+          break;
+        }
+
+        colCheck++;
+      }
+
+      if (!canSpawn) {
+        break;
+      }
+
+      rowCheck++;
+    }
+
+    return canSpawn;
   }
 
   fusion() {

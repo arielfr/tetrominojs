@@ -1,3 +1,4 @@
+const { BOARD_WIDTH } = require('../../constants');
 const types = require('./types');
 const { randomBetween } = require('../../libs/MathUtil');
 
@@ -12,7 +13,7 @@ class Tetromino {
     this.type = this.getRandomType();
 
     this.row = 0;
-    this.col = 0;
+    this.col = Math.ceil(((BOARD_WIDTH - 1) / 2) - (this.type.size / 2));
   }
 
   getRandomType() {
