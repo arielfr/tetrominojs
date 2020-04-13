@@ -87,13 +87,14 @@ class Board extends PIXI.Container {
       if (rowLastHit !== null) break;
     }
 
-    let canFall = true;
-    let rowCheck = 0;
     const nextRow = (this.currTetromino.row + 1);
 
     if ( nextRow + rowLastHit >= BOARD_HEIGHT ) {
       return false;
     }
+
+    let canFall = true;
+    let rowCheck = 0;
 
     for (let row = nextRow; row <= (nextRow + rowLastHit); row++) {
       let colCheck = 0;
@@ -195,7 +196,40 @@ class Board extends PIXI.Container {
 
   fusion() {
     this.board = this.getNewBoard();
+
+    this.checkForLines();
+
     this.spawn();
+  }
+
+  checkForLines() {
+    const fullLines = [];
+
+    for (let row = 0; row < this.board.length; row++) {
+      let line = true;
+
+      for (let column = 0; column < this.board[row].length; column++) {
+        if (!this.board[row][column]) {
+          line = false;
+        }
+      }
+
+      if (line) {
+        fullLines.push(row);
+      }
+    }
+
+    const newBoard = this.board.slice();
+
+    for (let row = 0; row < fullLines.length; row++) {
+      newBoard.splice(fullLines[row] - row, 1);
+    }
+
+    for (let i = 0; i < fullLines.length; i++) {
+      newBoard.unshift(new Array(BOARD_WIDTH).fill(0));
+    }
+
+    this.board = newBoard;
   }
 
   update() {
