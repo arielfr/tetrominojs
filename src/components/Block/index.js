@@ -4,7 +4,7 @@ const { BLOCK_SIZE } = require('../../constants');
  * Black Class
  */
 class Block {
-  constructor(texture, color, size = BLOCK_SIZE) {
+  constructor(texture, size = BLOCK_SIZE) {
     this.el = this.draw(texture, size);
   }
 

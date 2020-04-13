@@ -3538,7 +3538,7 @@ var PIXI = (function (exports) {
 	};
 
 	/**
-	 * Various webgl draw modes. These can be used to specify which GL drawMode to use
+	 * Various webgl init modes. These can be used to specify which GL drawMode to use
 	 * under certain situations and renderers.
 	 *
 	 * @memberof PIXI
@@ -4140,7 +4140,7 @@ var PIXI = (function (exports) {
 	        throw new Error(("Out buffer length is incorrect, got " + (outBuffer.length) + " and expected " + totalIndices));
 	    }
 
-	    // fill the indices with the quads to draw
+	    // fill the indices with the quads to init
 	    for (var i = 0, j = 0; i < totalIndices; i += 6, j += 4)
 	    {
 	        outBuffer[i + 0] = j + 0;
@@ -6444,7 +6444,7 @@ var PIXI = (function (exports) {
 	Object.defineProperties( Rectangle, staticAccessors$1 );
 
 	/**
-	 * The Circle object is used to help draw graphics and can also be used to specify a hit area for displayObjects.
+	 * The Circle object is used to help init graphics and can also be used to specify a hit area for displayObjects.
 	 *
 	 * @class
 	 * @memberof PIXI
@@ -6529,7 +6529,7 @@ var PIXI = (function (exports) {
 	};
 
 	/**
-	 * The Ellipse object is used to help draw graphics and can also be used to specify a hit area for displayObjects.
+	 * The Ellipse object is used to help init graphics and can also be used to specify a hit area for displayObjects.
 	 *
 	 * @class
 	 * @memberof PIXI
@@ -14826,7 +14826,7 @@ var PIXI = (function (exports) {
 	    this.instanced = false;
 
 	    /**
-	     * Number of instances in this geometry, pass it to `GeometrySystem.draw()`
+	     * Number of instances in this geometry, pass it to `GeometrySystem.init()`
 	     * @member {number}
 	     * @default 1
 	     */
@@ -15710,7 +15710,7 @@ var PIXI = (function (exports) {
 	    /**
 	     * Draws a filter.
 	     *
-	     * @param {PIXI.Filter} filter - The filter to draw.
+	     * @param {PIXI.Filter} filter - The filter to init.
 	     * @param {PIXI.RenderTexture} input - The input render target.
 	     * @param {PIXI.RenderTexture} output - The target to output to.
 	     * @param {boolean} clear - Should the output be cleared before rendering to it
@@ -21857,8 +21857,8 @@ var PIXI = (function (exports) {
 	}(BaseTexture));
 
 	/**
-	 * Used by the batcher to draw batches.
-	 * Each one of these contains all information required to draw a bound geometry.
+	 * Used by the batcher to init batches.
+	 * Each one of these contains all information required to init a bound geometry.
 	 *
 	 * @class
 	 * @memberof PIXI
@@ -22038,7 +22038,7 @@ var PIXI = (function (exports) {
 	 * This is the default batch renderer. It buffers objects
 	 * with texture-based geometries and renders them in
 	 * batches. It uploads multiple textures to the GPU to
-	 * reduce to the number of draw calls.
+	 * reduce to the number of init calls.
 	 *
 	 * @class
 	 * @protected
@@ -22056,7 +22056,7 @@ var PIXI = (function (exports) {
 	         * attribute that points to an texture in `uSampler`.
 	         *
 	         * This enables the objects with different textures
-	         * to be drawn in the same draw call.
+	         * to be drawn in the same init call.
 	         *
 	         * You can customize your shader by creating your
 	         * custom shader generator.
@@ -22158,7 +22158,7 @@ var PIXI = (function (exports) {
 	        /**
 	         * Pool of `this.geometryClass` geometry objects
 	         * that store buffers. They are used to pass data
-	         * to the shader on each draw call.
+	         * to the shader on each init call.
 	         *
 	         * These are never re-allocated again, unless a
 	         * context change occurs; however, the pool may
@@ -22207,7 +22207,7 @@ var PIXI = (function (exports) {
 	        this._drawCalls = [];
 
 	        for (var k = 0; k < this.size / 4; k++)
-	        { // initialize the draw-calls pool to max size.
+	        { // initialize the init-calls pool to max size.
 	            this._drawCalls[k] = new BatchDrawCall();
 	        }
 
@@ -22462,7 +22462,7 @@ var PIXI = (function (exports) {
 	        var textureSystem = this.renderer.texture;
 	        var stateSystem = this.renderer.state;
 
-	        // Upload textures and do the draw calls
+	        // Upload textures and do the init calls
 	        for (i = 0; i < groupCount; i++)
 	        {
 	            var group = drawCalls[i];
@@ -25610,7 +25610,7 @@ var PIXI = (function (exports) {
 	/**
 	 * Graphics curves resolution settings. If `adaptive` flag is set to `true`,
 	 * the resolution is calculated based on the curve's length to ensure better visual quality.
-	 * Adaptive draw works with `bezierCurveTo` and `quadraticCurveTo`.
+	 * Adaptive init works with `bezierCurveTo` and `quadraticCurveTo`.
 	 *
 	 * @static
 	 * @constant
@@ -25748,7 +25748,7 @@ var PIXI = (function (exports) {
 	    if ( matrix === void 0 ) { matrix = null; }
 
 	    /**
-	     * The shape object to draw.
+	     * The shape object to init.
 	     * @member {PIXI.Circle|PIXI.Ellipse|PIXI.Polygon|PIXI.Rectangle|PIXI.RoundedRectangle}
 	     */
 	    this.shape = shape;
@@ -25820,13 +25820,13 @@ var PIXI = (function (exports) {
 	};
 
 	/**
-	 * Builds a circle to draw
+	 * Builds a circle to init
 	 *
 	 * Ignored from docs since it is not directly exposed.
 	 *
 	 * @ignore
 	 * @private
-	 * @param {PIXI.WebGLGraphicsData} graphicsData - The graphics object to draw
+	 * @param {PIXI.WebGLGraphicsData} graphicsData - The graphics object to init
 	 * @param {object} webGLData - an object containing all the WebGL-specific information to create this shape
 	 * @param {object} webGLDataNativeLines - an object containing all the WebGL-specific information to create nativeLines
 	 */
@@ -25904,7 +25904,7 @@ var PIXI = (function (exports) {
 	};
 
 	/**
-	 * Builds a line to draw
+	 * Builds a line to init
 	 *
 	 * Ignored from docs since it is not directly exposed.
 	 *
@@ -25926,7 +25926,7 @@ var PIXI = (function (exports) {
 	}
 
 	/**
-	 * Builds a line to draw using the polygon method.
+	 * Builds a line to init using the polygon method.
 	 *
 	 * Ignored from docs since it is not directly exposed.
 	 *
@@ -26142,7 +26142,7 @@ var PIXI = (function (exports) {
 	}
 
 	/**
-	 * Builds a line to draw using the gl.drawArrays(gl.LINES) method
+	 * Builds a line to init using the gl.drawArrays(gl.LINES) method
 	 *
 	 * Ignored from docs since it is not directly exposed.
 	 *
@@ -26185,7 +26185,7 @@ var PIXI = (function (exports) {
 	}
 
 	/**
-	 * Builds a polygon to draw
+	 * Builds a polygon to init
 	 *
 	 * Ignored from docs since it is not directly exposed.
 	 *
@@ -26248,7 +26248,7 @@ var PIXI = (function (exports) {
 	};
 
 	/**
-	 * Builds a rectangle to draw
+	 * Builds a rectangle to init
 	 *
 	 * Ignored from docs since it is not directly exposed.
 	 *
@@ -26299,7 +26299,7 @@ var PIXI = (function (exports) {
 	};
 
 	/**
-	 * Builds a rounded rectangle to draw
+	 * Builds a rounded rectangle to init
 	 *
 	 * Ignored from docs since it is not directly exposed.
 	 *
@@ -26476,7 +26476,7 @@ var PIXI = (function (exports) {
 	};
 
 	/**
-	 * The Graphics class contains methods used to draw primitive shapes such as lines, circles and
+	 * The Graphics class contains methods used to init primitive shapes such as lines, circles and
 	 * rectangles to the display, and to color and fill them.
 	 *
 	 * GraphicsGeometry is designed to not be continually updating the geometry since it's expensive
@@ -26492,7 +26492,7 @@ var PIXI = (function (exports) {
 	        BatchGeometry.call(this);
 
 	        /**
-	         * An array of points to draw, 2 numbers per point
+	         * An array of points to init, 2 numbers per point
 	         *
 	         * @member {number[]}
 	         * @protected
@@ -26573,7 +26573,7 @@ var PIXI = (function (exports) {
 	        this.clearDirty = 0;
 
 	        /**
-	         * List of current draw calls drived from the batches.
+	         * List of current init calls drived from the batches.
 	         *
 	         * @member {object[]}
 	         * @protected
@@ -26717,7 +26717,7 @@ var PIXI = (function (exports) {
 	    /**
 	     * Draws the given shape to this Graphics object. Can be any of Circle, Rectangle, Ellipse, Line or Polygon.
 	     *
-	     * @param {PIXI.Circle|PIXI.Ellipse|PIXI.Polygon|PIXI.Rectangle|PIXI.RoundedRectangle} shape - The shape object to draw.
+	     * @param {PIXI.Circle|PIXI.Ellipse|PIXI.Polygon|PIXI.Rectangle|PIXI.RoundedRectangle} shape - The shape object to init.
 	     * @param {PIXI.FillStyle} fillStyle - Defines style of the fill.
 	     * @param {PIXI.LineStyle} lineStyle - Defines style of the lines.
 	     * @param {PIXI.Matrix} matrix - Transform applied to the points of the shape.
@@ -26736,7 +26736,7 @@ var PIXI = (function (exports) {
 	    /**
 	     * Draws the given shape to this Graphics object. Can be any of Circle, Rectangle, Ellipse, Line or Polygon.
 	     *
-	     * @param {PIXI.Circle|PIXI.Ellipse|PIXI.Polygon|PIXI.Rectangle|PIXI.RoundedRectangle} shape - The shape object to draw.
+	     * @param {PIXI.Circle|PIXI.Ellipse|PIXI.Polygon|PIXI.Rectangle|PIXI.RoundedRectangle} shape - The shape object to init.
 	     * @param {PIXI.Matrix} matrix - Transform applied to the points of the shape.
 	     * @return {PIXI.GraphicsGeometry} Returns geometry for chaining.
 	     */
@@ -27547,7 +27547,7 @@ var PIXI = (function (exports) {
 	        this.alignment = 0.5;
 
 	        /**
-	         * If true the lines will be draw using LINES instead of TRIANGLE_STRIP
+	         * If true the lines will be init using LINES instead of TRIANGLE_STRIP
 	         *
 	         * @member {boolean}
 	         * @default false
@@ -27875,7 +27875,7 @@ var PIXI = (function (exports) {
 	var DEFAULT_SHADERS = {};
 
 	/**
-	 * The Graphics class contains methods used to draw primitive shapes such as lines, circles and
+	 * The Graphics class contains methods used to init primitive shapes such as lines, circles and
 	 * rectangles to the display, and to color and fill them.
 	 *
 	 * Note that because Graphics can share a GraphicsGeometry with other instances,
@@ -28092,11 +28092,11 @@ var PIXI = (function (exports) {
 	     * Specifies the line style used for subsequent calls to Graphics methods such as the lineTo()
 	     * method or the drawCircle() method.
 	     *
-	     * @param {number} [width=0] - width of the line to draw, will update the objects stored style
-	     * @param {number} [color=0] - color of the line to draw, will update the objects stored style
-	     * @param {number} [alpha=1] - alpha of the line to draw, will update the objects stored style
-	     * @param {number} [alignment=0.5] - alignment of the line to draw, (0 = inner, 0.5 = middle, 1 = outter)
-	     * @param {boolean} [native=false] - If true the lines will be draw using LINES instead of TRIANGLE_STRIP
+	     * @param {number} [width=0] - width of the line to init, will update the objects stored style
+	     * @param {number} [color=0] - color of the line to init, will update the objects stored style
+	     * @param {number} [alpha=1] - alpha of the line to init, will update the objects stored style
+	     * @param {number} [alignment=0.5] - alignment of the line to init, (0 = inner, 0.5 = middle, 1 = outter)
+	     * @param {boolean} [native=false] - If true the lines will be init using LINES instead of TRIANGLE_STRIP
 	     * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
 	     */
 	    Graphics.prototype.lineStyle = function lineStyle (width, color, alpha, alignment, native)
@@ -28115,13 +28115,13 @@ var PIXI = (function (exports) {
 	    /**
 	     * Like line style but support texture for line fill.
 	     *
-	     * @param {number} [width=0] - width of the line to draw, will update the objects stored style
+	     * @param {number} [width=0] - width of the line to init, will update the objects stored style
 	     * @param {PIXI.Texture} [texture=PIXI.Texture.WHITE] - Texture to use
-	     * @param {number} [color=0] - color of the line to draw, will update the objects stored style
-	     * @param {number} [alpha=1] - alpha of the line to draw, will update the objects stored style
+	     * @param {number} [color=0] - color of the line to init, will update the objects stored style
+	     * @param {number} [alpha=1] - alpha of the line to init, will update the objects stored style
 	     * @param {PIXI.Matrix} [matrix=null] Texture matrix to transform texture
-	     * @param {number} [alignment=0.5] - alignment of the line to draw, (0 = inner, 0.5 = middle, 1 = outter)
-	     * @param {boolean} [native=false] - If true the lines will be draw using LINES instead of TRIANGLE_STRIP
+	     * @param {number} [alignment=0.5] - alignment of the line to init, (0 = inner, 0.5 = middle, 1 = outter)
+	     * @param {boolean} [native=false] - If true the lines will be init using LINES instead of TRIANGLE_STRIP
 	     * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
 	     */
 	    Graphics.prototype.lineTextureStyle = function lineTextureStyle (width, texture, color, alpha,
@@ -28235,8 +28235,8 @@ var PIXI = (function (exports) {
 	     * Draws a line using the current line style from the current drawing position to (x, y);
 	     * The current drawing position is then set to (x, y).
 	     *
-	     * @param {number} x - the X coordinate to draw to
-	     * @param {number} y - the Y coordinate to draw to
+	     * @param {number} x - the X coordinate to init to
+	     * @param {number} y - the Y coordinate to init to
 	     * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
 	     */
 	    Graphics.prototype.lineTo = function lineTo (x, y)
@@ -28617,7 +28617,7 @@ var PIXI = (function (exports) {
 	    /**
 	     * Draw any shape.
 	     *
-	     * @param {PIXI.Circle|PIXI.Ellipse|PIXI.Polygon|PIXI.Rectangle|PIXI.RoundedRectangle} shape - Shape to draw
+	     * @param {PIXI.Circle|PIXI.Ellipse|PIXI.Polygon|PIXI.Rectangle|PIXI.RoundedRectangle} shape - Shape to init
 	     * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
 	     */
 	    Graphics.prototype.drawShape = function drawShape (shape)
@@ -28825,7 +28825,7 @@ var PIXI = (function (exports) {
 	        uniforms.tint[2] = ((tint & 0xFF) / 255) * worldAlpha;
 	        uniforms.tint[3] = worldAlpha;
 
-	        // the first draw call, we can set the uniforms of the shader directly here.
+	        // the first init call, we can set the uniforms of the shader directly here.
 
 	        // this means that we can tack advantage of the sync function of pixi!
 	        // bind and sync uniforms..
@@ -29031,7 +29031,7 @@ var PIXI = (function (exports) {
 	    };
 
 	    /**
-	     * Begin adding holes to the last draw shape
+	     * Begin adding holes to the last init shape
 	     * IMPORTANT: holes must be fully inside a shape to work
 	     * Also weirdness ensues if holes overlap!
 	     * Ellipses, Circles, Rectangles and Rounded Rectangles cannot be holes or host for holes in CanvasRenderer,
@@ -29047,7 +29047,7 @@ var PIXI = (function (exports) {
 	    };
 
 	    /**
-	     * End adding holes to the last draw shape
+	     * End adding holes to the last init shape
 	     * @return {PIXI.Graphics} Returns itself.
 	     */
 	    Graphics.prototype.endHole = function endHole ()
@@ -31546,7 +31546,7 @@ var PIXI = (function (exports) {
 	        var linePositionX;
 	        var linePositionY;
 
-	        // require 2 passes if a shadow; the first to draw the drop shadow, the second to draw the text
+	        // require 2 passes if a shadow; the first to init the drop shadow, the second to init the text
 	        var passesCount = style.dropShadow ? 2 : 1;
 
 	        // For v4, we drew text at the colours of the drop shadow underneath the normal text. This gave the correct zIndex,
@@ -31557,8 +31557,8 @@ var PIXI = (function (exports) {
 	        // and the stroke; and fill drop shadows would appear over the top of the stroke.
 	        //
 	        // For v5.1.1, the new route is to revert to v4 style of drawing text first to get the drop shadows underneath normal
-	        // text, but instead drawing text in the correct location, we'll draw it off screen (-paddingY), and then adjust the
-	        // drop shadow so only that appears on screen (+paddingY). Now we'll have the correct draw order of the shadow
+	        // text, but instead drawing text in the correct location, we'll init it off screen (-paddingY), and then adjust the
+	        // drop shadow so only that appears on screen (+paddingY). Now we'll have the correct init order of the shadow
 	        // beneath the text, whilst also having the proper text shadow styling.
 	        for (var i = 0; i < passesCount; ++i)
 	        {
@@ -31594,7 +31594,7 @@ var PIXI = (function (exports) {
 	                context.shadowOffsetY = 0;
 	            }
 
-	            // draw lines line by line
+	            // init lines line by line
 	            for (var i$1 = 0; i$1 < lines.length; i$1++)
 	            {
 	                linePositionX = style.strokeThickness / 2;
@@ -31635,9 +31635,9 @@ var PIXI = (function (exports) {
 
 	    /**
 	     * Render the text with letter-spacing.
-	     * @param {string} text - The text to draw
-	     * @param {number} x - Horizontal position to draw the text
-	     * @param {number} y - Vertical position to draw the text
+	     * @param {string} text - The text to init
+	     * @param {number} x - Horizontal position to init the text
+	     * @param {number} y - Vertical position to init the text
 	     * @param {boolean} [isStroke=false] - Is this drawing for the outside stroke of the
 	     *  text? If not, it's for the inside fill
 	     * @private
@@ -32494,7 +32494,7 @@ var PIXI = (function (exports) {
 	}
 
 	/**
-	 * Built-in hook to draw PIXI.Text to its texture.
+	 * Built-in hook to init PIXI.Text to its texture.
 	 *
 	 * @private
 	 * @param {PIXI.Renderer|PIXI.CanvasPrepare} helper - Not used by this upload handler
@@ -36197,7 +36197,7 @@ var PIXI = (function (exports) {
 	    var dynamicOffset = 0;
 
 	    /**
-	     * Holds the indices of the geometry (quads) to draw
+	     * Holds the indices of the geometry (quads) to init
 	     *
 	     * @member {Uint16Array}
 	     * @private
@@ -39682,7 +39682,7 @@ var PIXI = (function (exports) {
 	            this.uniforms.rotation[3] = wt.d / lenY;
 	        }
 
-	        // draw the filter...
+	        // init the filter...
 	        filterManager.applyFilter(this, input, output, clear);
 	    };
 
@@ -41619,7 +41619,7 @@ var PIXI = (function (exports) {
 	        this.start = 0;
 
 	        /**
-	         * How much of the geometry to draw, by default `0` renders everything.
+	         * How much of the geometry to init, by default `0` renders everything.
 	         * @member {number}
 	         * @default 0
 	         */
@@ -41791,7 +41791,7 @@ var PIXI = (function (exports) {
 	    };
 
 	    /**
-	     * Standard renderer draw.
+	     * Standard renderer init.
 	     * @protected
 	     * @param {PIXI.Renderer} renderer - Instance to renderer.
 	     */
@@ -42344,7 +42344,7 @@ var PIXI = (function (exports) {
 	}(MeshGeometry));
 
 	/**
-	 * RopeGeometry allows you to draw a geometry across several points and then manipulate these points.
+	 * RopeGeometry allows you to init a geometry across several points and then manipulate these points.
 	 *
 	 * ```js
 	 * for (let i = 0; i < 20; i++) {
@@ -42530,7 +42530,7 @@ var PIXI = (function (exports) {
 	}(MeshGeometry));
 
 	/**
-	 * The rope allows you to draw a texture across several points and then manipulate these points
+	 * The rope allows you to init a texture across several points and then manipulate these points
 	 *
 	 *```js
 	 * for (let i = 0; i < 20; i++) {
@@ -42580,7 +42580,7 @@ var PIXI = (function (exports) {
 	}(Mesh));
 
 	/**
-	 * The SimplePlane allows you to draw a texture across several points and then manipulate these points
+	 * The SimplePlane allows you to init a texture across several points and then manipulate these points
 	 *
 	 *```js
 	 * for (let i = 0; i < 20; i++) {

@@ -1,16 +1,17 @@
 require('./styles/base.scss');
 
-const Tetromino = require('./components/Tetromino');
+const Board = require('./components/Board');
 const Keyboard = require('./libs/Keyboard');
 
 window.onload = function () {
   const app = new PIXI.Application({
-    width: 600,
-    height: 600,
+    width: 400,
+    height: 700,
     backgroundColor: 0x1099bb,
     resolution: 1,
   });
 
+  app.loader.add('block-empty', 'images/empty.png');
   app.loader.add('block-i', 'images/I.png');
   app.loader.add('block-j', 'images/J.png');
   app.loader.add('block-l', 'images/L.png');
@@ -28,12 +29,13 @@ window.onload = function () {
   app.loader.load();
 
   function startGame () {
-    const block = new Tetromino(app.loader.resources);
+    const board = new Board(app.loader.resources);
 
-    app.stage.addChild(block);
+    app.stage.addChild(board);
 
     // Game Configs
-    const delaySpeed = 1800;
+    //const delaySpeed = 1800;
+    const delaySpeed = 500;
     let startDate = new Date();
 
     app.ticker.add(() => {
@@ -41,26 +43,28 @@ window.onload = function () {
       const keyPress = Keyboard.getKeyPress();
 
       if (keyPress === Keyboard.KEYS.KEY_UP) {
-        block.rotate(-1);
+        board.rotate(-1);
       }
 
       if (keyPress === Keyboard.KEYS.KEY_DOWN) {
-        block.rotate(1);
+        board.rotate(1);
       }
 
       if (keyPress === Keyboard.KEYS.KEY_LEFT) {
-        block.move(-1);
+        board.move(-1);
       }
 
       if (keyPress === Keyboard.KEYS.KEY_RIGHT) {
-        block.move(1);
+        board.move(1);
       }
 
-      if ((now - startDate) >= delaySpeed) {
+      if ( ((now - startDate) >= delaySpeed) || keyPress === Keyboard.KEYS.KEY_SPACE ) {
         startDate = new Date();
 
-        block.fall();
+        board.fall();
       }
+
+      board.update();
     });
   }
 };
