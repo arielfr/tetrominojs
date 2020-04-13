@@ -65,17 +65,20 @@ class Board extends PIXI.Container {
   fall() {
     if (this.currTetromino && this.canFall()) {
       this.currTetromino.fall();
+    } else {
+      this.fusion();
     }
   }
 
   canFall() {
     const currShape = this.currTetromino.type.shapes[this.currTetromino.currRotation];
 
+    // Last row with value
     let rowLastHit = null;
 
     for (let row = currShape.length - 1; row >= 0; row--) {
       for (let col = 0; col < currShape[row].length; col++) {
-        if (rowLastHit === null && currShape[row][col]) {
+        if (currShape[row][col]) {
           rowLastHit = row;
           break;
         }
@@ -84,12 +87,34 @@ class Board extends PIXI.Container {
       if (rowLastHit !== null) break;
     }
 
-    // Hit + Array Index
-    if ( (this.currTetromino.row + rowLastHit + 1) + 1 <= BOARD_HEIGHT ) {
-      return true;
-    } else{
+    let canFall = true;
+    let rowCheck = 0;
+    const nextRow = (this.currTetromino.row + 1);
+
+    if ( nextRow + rowLastHit >= BOARD_HEIGHT ) {
       return false;
     }
+
+    for (let row = nextRow; row <= (nextRow + rowLastHit); row++) {
+      let colCheck = 0;
+
+      for (let col = this.currTetromino.col; col < (this.currTetromino.col + this.currTetromino.type.size); col++) {
+        if (this.board[row][col] && currShape[rowCheck][colCheck]) {
+          canFall = false;
+          break;
+        }
+
+        colCheck++;
+      }
+
+      if (!canFall) {
+        break;
+      }
+
+      rowCheck++;
+    }
+
+    return canFall;
   }
 
   canMoveLeft() {
@@ -168,7 +193,16 @@ class Board extends PIXI.Container {
     }
   }
 
+  fusion() {
+    this.board = this.getNewBoard();
+    this.spawn();
+  }
+
   update() {
+    this.draw(this.getNewBoard());
+  }
+
+  getNewBoard() {
     const tempBoard = new Array(BOARD_HEIGHT).fill(0).map(() =>
       new Array(BOARD_WIDTH).fill(0)
     );
@@ -186,6 +220,8 @@ class Board extends PIXI.Container {
         ) {
           if ( this.currTetromino.type.shapes[this.currTetromino.currRotation][tetromRow][tetromCol] ) {
             tempBoard[row][column] = this.currTetromino.type.texture;
+          } else {
+            tempBoard[row][column] = this.board[row][column];
           }
           found = true;
         } else {
@@ -198,7 +234,7 @@ class Board extends PIXI.Container {
       if (found) tetromRow++;
     }
 
-    this.draw(tempBoard);
+    return tempBoard
   }
 
   draw(board) {
@@ -207,7 +243,7 @@ class Board extends PIXI.Container {
         if (board[row][column] !== 0) {
           this.boardEl[row][column].texture = this.res[board[row][column]].texture;
         } else {
-          this.boardEl[row][column].texture = this.res['block-empty'].texture;
+          this.boardEl[row][column].texture = this.board[row][column] ? this.boardEl[row][column].texture : this.res['block-empty'].texture;
         }
       }
     }

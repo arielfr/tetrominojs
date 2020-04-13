@@ -34,7 +34,8 @@ window.onload = function () {
     app.stage.addChild(board);
 
     // Game Configs
-    const delaySpeed = 1800;
+    //const delaySpeed = 1800;
+    const delaySpeed = 500;
     let startDate = new Date();
 
     app.ticker.add(() => {
@@ -57,7 +58,7 @@ window.onload = function () {
         board.move(1);
       }
 
-      if ((now - startDate) >= delaySpeed) {
+      if ( ((now - startDate) >= delaySpeed) || keyPress === Keyboard.KEYS.KEY_SPACE ) {
         startDate = new Date();
 
         board.fall();
