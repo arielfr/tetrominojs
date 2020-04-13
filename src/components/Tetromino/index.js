@@ -28,6 +28,11 @@ class Tetromino {
     this.row++;
   }
 
+  nextRotation(delta) {
+    const rotation = Math.abs(this.realRotation + delta) % 4;
+    return rotation;
+  }
+
   rotate(delta) {
     this.realRotation = this.realRotation + delta;
     const rotation = Math.abs(this.realRotation) % 4;

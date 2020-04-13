@@ -1,7 +1,6 @@
 require('./styles/base.scss');
 
 const Board = require('./components/Board');
-const Tetromino = require('./components/Tetromino');
 const Keyboard = require('./libs/Keyboard');
 
 window.onload = function () {
@@ -31,11 +30,8 @@ window.onload = function () {
 
   function startGame () {
     const board = new Board(app.loader.resources);
-    const tetronimo = new Tetromino(app.loader.resources);
 
     app.stage.addChild(board);
-
-    board.add(tetronimo);
 
     // Game Configs
     const delaySpeed = 1800;
@@ -46,28 +42,28 @@ window.onload = function () {
       const keyPress = Keyboard.getKeyPress();
 
       if (keyPress === Keyboard.KEYS.KEY_UP) {
-        tetronimo.rotate(-1);
+        board.rotate(-1);
       }
 
       if (keyPress === Keyboard.KEYS.KEY_DOWN) {
-        tetronimo.rotate(1);
+        board.rotate(1);
       }
 
       if (keyPress === Keyboard.KEYS.KEY_LEFT) {
-        tetronimo.move(-1);
+        board.move(-1);
       }
 
       if (keyPress === Keyboard.KEYS.KEY_RIGHT) {
-        tetronimo.move(1);
+        board.move(1);
       }
 
       if ((now - startDate) >= delaySpeed) {
         startDate = new Date();
 
-        tetronimo.fall();
+        board.fall();
       }
 
-      board.add(tetronimo);
+      board.update();
     });
   }
 };
