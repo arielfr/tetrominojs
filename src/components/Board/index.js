@@ -57,16 +57,38 @@ class Board extends PIXI.Container {
   }
 
   rotate(delta) {
-    if (this.currTetromino) {
-      if (this.canRotate(delta)) {
-        this.currTetromino.rotate(delta);
-      }
+    if (this.currTetromino && this.canRotate(delta)) {
+      this.currTetromino.rotate(delta);
     }
   }
 
   fall() {
-    if (this.currTetromino) {
+    if (this.currTetromino && this.canFall()) {
       this.currTetromino.fall();
+    }
+  }
+
+  canFall() {
+    const currShape = this.currTetromino.type.shapes[this.currTetromino.currRotation];
+
+    let rowLastHit = null;
+
+    for (let row = currShape.length - 1; row >= 0; row--) {
+      for (let col = 0; col < currShape[row].length; col++) {
+        if (rowLastHit === null && currShape[row][col]) {
+          rowLastHit = row;
+          break;
+        }
+      }
+
+      if (rowLastHit !== null) break;
+    }
+
+    // Hit + Array Index
+    if ( (this.currTetromino.row + rowLastHit + 1) + 1 <= BOARD_HEIGHT ) {
+      return true;
+    } else{
+      return false;
     }
   }
 
