@@ -8,7 +8,7 @@ class Board extends PIXI.Container {
     this.res = resources;
 
     this.grid = this.createEmptyBoard();
-    this.boardEl = this.createEmptyBoard();
+    this.visibleGrid = this.createEmptyBoard();
   }
 
   createEmptyBoard() {
@@ -26,7 +26,7 @@ class Board extends PIXI.Container {
         block.el.position.x = column * BLOCK_SIZE;
         block.el.position.y = row * BLOCK_SIZE;
 
-        this.boardEl[row][column] = block.el;
+        this.visibleGrid[row][column] = block.el;
         this.addChild(block.el);
       }
     }
@@ -83,9 +83,9 @@ class Board extends PIXI.Container {
     for (let row = 0; row < this.grid.length; row++) {
       for (let column = 0; column < this.grid[row].length; column++) {
         if (board[row][column] !== 0) {
-          this.boardEl[row][column].texture = this.res[board[row][column]].texture;
+          this.visibleGrid[row][column].texture = this.res[board[row][column]].texture;
         } else {
-          this.boardEl[row][column].texture = this.grid[row][column] ? this.boardEl[row][column].texture : this.res['block-empty'].texture;
+          this.visibleGrid[row][column].texture = this.grid[row][column] ? this.visibleGrid[row][column].texture : this.res['block-empty'].texture;
         }
       }
     }
