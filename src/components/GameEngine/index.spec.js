@@ -60,7 +60,7 @@ describe('Board', () => {
     }
 
     if (type === 'ROTATE') {
-      shape = this.type.shapes[tetromino.nextRotation(1)];
+      shape = tetromino.type.shapes[tetromino.nextRotation(1)];
     }
 
     let moveAllowed = true;
@@ -366,6 +366,112 @@ describe('Board', () => {
         board[3] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
         expect(canMoveRight(board, tetromino)).toBeFalsy();
+      });
+    });
+
+    describe('Can Rotate Logic', () => {
+      test('No collision with top border', () => {
+        const board = createEmptyBoard();
+
+        //       0              1             2             3
+        // [[1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+        const tetromino = new Tetromino({ type: TetrominoTypes.I, col: 0 });
+
+        // Next Rotation
+        //       0              1             2             3
+        // [[0, 0, 1, 0], [0, 0, 1, 0], [0, 0, 1, 0], [0, 0, 1, 0]]
+
+        expect(canRotate(board, tetromino)).toBeTruthy();
+      });
+
+      test('Collision with bottom border', () => {
+        const board = createEmptyBoard();
+
+        //       0              1             2             3
+        // [[1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+        const tetromino = new Tetromino({ type: TetrominoTypes.I, col: 0, row: (BOARD_HEIGHT - 1) });
+
+        // Next Rotation
+        //       0              1             2             3
+        // [[0, 0, 1, 0], [0, 0, 1, 0], [0, 0, 1, 0], [0, 0, 1, 0]]
+
+        expect(canRotate(board, tetromino)).toBeFalsy();
+      });
+
+      test('Rotation Allowed', () => {
+        const board = createEmptyBoard();
+
+        //       0              1             2             3
+        // [[1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+        const tetromino = new Tetromino({ type: TetrominoTypes.I, col: 0 });
+
+        // Next Rotation
+        //       0              1             2             3
+        // [[0, 0, 1, 0], [0, 0, 1, 0], [0, 0, 1, 0], [0, 0, 1, 0]]
+
+        expect(canRotate(board, tetromino)).toBeTruthy();
+      });
+
+      test('No collision with invisible', () => {
+        const board = createEmptyBoard();
+
+        //       0              1             2             3
+        // [[1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+        const tetromino = new Tetromino({ type: TetrominoTypes.I, col: (BOARD_WIDTH - 1) - 3 });
+
+        // Next Rotation
+        //       0              1             2             3
+        // [[0, 0, 1, 0], [0, 0, 1, 0], [0, 0, 1, 0], [0, 0, 1, 0]]
+
+        expect(canRotate(board, tetromino)).toBeTruthy();
+      });
+
+      test('No Collision with invisible', () => {
+        const board = createEmptyBoard();
+
+        //       0              1             2             3
+        // [[1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+        const tetromino = new Tetromino({ type: TetrominoTypes.I, col: 0 });
+
+        // Next Rotation
+        //       0              1             2             3
+        // [[0, 0, 1, 0], [0, 0, 1, 0], [0, 0, 1, 0], [0, 0, 1, 0]]
+
+        board[1] = [0, 0, 0, 1, 0, 0, 0, 0, 0, 0];
+
+        expect(canRotate(board, tetromino)).toBeTruthy();
+      });
+
+      test('Collision', () => {
+        const board = createEmptyBoard();
+
+        //       0              1             2             3
+        // [[1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+        const tetromino = new Tetromino({ type: TetrominoTypes.I, col: 0 });
+
+        // Next Rotation
+        //       0              1             2             3
+        // [[0, 0, 1, 0], [0, 0, 1, 0], [0, 0, 1, 0], [0, 0, 1, 0]]
+
+        board[1] = [0, 0, 1, 0, 0, 0, 0, 0, 0, 0];
+
+        expect(canRotate(board, tetromino)).toBeFalsy();
+      });
+
+      test('No collision with last row', () => {
+        const board = createEmptyBoard();
+
+        //       0              1             2             3
+        // [[1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+        const tetromino = new Tetromino({ type: TetrominoTypes.I, col: 0 });
+
+        // Next Rotation
+        //       0              1             2             3
+        // [[0, 0, 1, 0], [0, 0, 1, 0], [0, 0, 1, 0], [0, 0, 1, 0]]
+
+        board[3] = [0, 0, 1, 0, 0, 0, 0, 0, 0, 0];
+
+        expect(canRotate(board, tetromino)).toBeFalsy();
       });
     });
   });
