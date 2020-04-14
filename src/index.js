@@ -1,7 +1,6 @@
 require('./styles/base.scss');
 
-const Keyboard = require('./libs/Keyboard');
-const GameEngine = require('./components/GameEngine');
+const Game = require('./Game');
 
 window.onload = function () {
   const app = new PIXI.Application({
@@ -29,44 +28,8 @@ window.onload = function () {
   app.loader.load();
 
   function startGame () {
-    const ge = new GameEngine({ resources: app.loader.resources });
+    const game = new Game(app);
 
-    app.stage.addChild(ge.board);
-
-    // Game Configs
-    //const delaySpeed = 1800;
-    const delaySpeed = 300;
-    let startDate = new Date();
-
-    app.ticker.add(() => {
-      if (!ge.gameOver) {
-        const now = new Date();
-        const keyPress = Keyboard.getKeyPress();
-
-        if (keyPress === Keyboard.KEYS.KEY_UP) {
-          ge.rotate(-1);
-        }
-
-        if (keyPress === Keyboard.KEYS.KEY_DOWN) {
-          ge.rotate(1);
-        }
-
-        if (keyPress === Keyboard.KEYS.KEY_LEFT) {
-          ge.move(-1);
-        }
-
-        if (keyPress === Keyboard.KEYS.KEY_RIGHT) {
-          ge.move(1);
-        }
-
-        if ( ((now - startDate) >= delaySpeed) || keyPress === Keyboard.KEYS.KEY_SPACE ) {
-          startDate = new Date();
-
-          ge.fall();
-        }
-
-        ge.update();
-      }
-    });
+    game.run();
   }
 };
