@@ -6,14 +6,14 @@ const { randomBetween } = require('../../libs/MathUtil');
  * Tetromino Class
  */
 class Tetromino {
-  constructor() {
+  constructor({ row, col, type, rotation }) {
     this.blocks = [];
-    this.realRotation = 0;
-    this.currRotation = 0;
-    this.type = this.getRandomType();
+    this.currRotation = (rotation !== undefined) ? rotation : 0;
+    this.realRotation = this.currRotation;
+    this.type = type || this.getRandomType();
 
-    this.row = 0;
-    this.col = Math.ceil(((BOARD_WIDTH - 1) / 2) - (this.type.size / 2));
+    this.row = (row !== undefined) ? row : 0;
+    this.col = (col !== undefined) ? col : Math.ceil(((BOARD_WIDTH - 1) / 2) - (this.type.size / 2));
   }
 
   getRandomType() {

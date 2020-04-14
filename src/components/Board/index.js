@@ -20,7 +20,7 @@ class Board extends PIXI.Container {
     this.tetrominos = [];
 
     for (let i = 0; i < 5; i++) {
-      this.tetrominos.push(new Tetromino());
+      this.tetrominos.push(new Tetromino({}));
     }
     this.init(resources);
     this.spawn();
@@ -44,7 +44,7 @@ class Board extends PIXI.Container {
   spawn() {
     if (this.canSpawn()) {
       const current = this.tetrominos.splice(0, 1);
-      this.tetrominos.push(new Tetromino());
+      this.tetrominos.push(new Tetromino({}));
       this.currTetromino = current[0];
     } else {
       // Game Over
