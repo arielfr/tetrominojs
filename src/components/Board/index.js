@@ -3,18 +3,13 @@ const Block = require('../Block');
 const Tetromino = require('../Tetromino');
 
 class Board extends PIXI.Container {
-  constructor(resources) {
+  constructor({ resources }) {
     super();
 
     this.res = resources;
 
-    this.board = new Array(BOARD_HEIGHT).fill(0).map(() =>
-      new Array(BOARD_WIDTH).fill(0)
-    );
-
-    this.boardEl = new Array(BOARD_HEIGHT).fill(0).map(() =>
-      new Array(BOARD_WIDTH).fill(0)
-    );
+    this.board = this.createEmptyBoard();
+    this.boardEl = this.createEmptyBoard();
 
     this.currTetromino = null;
     this.tetrominos = [];
@@ -24,6 +19,22 @@ class Board extends PIXI.Container {
     }
     this.init(resources);
     this.spawn();
+  }
+
+  createEmptyBoard() {
+    const board = [];
+
+    for (let i = 0; i < BOARD_HEIGHT; i++) {
+      const row = [];
+
+      for (let i = 0; i < BOARD_WIDTH; i++) {
+        row.push(0);
+      }
+
+      board.push(row);
+    }
+
+    return board;
   }
 
   init(resources) {
@@ -347,9 +358,7 @@ class Board extends PIXI.Container {
   }
 
   getNewBoard() {
-    const tempBoard = new Array(BOARD_HEIGHT).fill(0).map(() =>
-      new Array(BOARD_WIDTH).fill(0)
-    );
+    const tempBoard = this.createEmptyBoard();
 
     let tetromRow = 0;
 

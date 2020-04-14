@@ -29,7 +29,7 @@ window.onload = function () {
   app.loader.load();
 
   function startGame () {
-    const board = new Board(app.loader.resources);
+    const board = new Board({ resources: app.loader.resources });
 
     app.stage.addChild(board);
 
