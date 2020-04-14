@@ -3,7 +3,6 @@ const TetrominoTypes = require('../Tetromino/types');
 const Tetromino = require('../Tetromino');
 
 describe('Board', () => {
-
   const createEmptyBoard = () => {
     const board = [];
 
@@ -71,9 +70,9 @@ describe('Board', () => {
 
       for (let col = startColLoop; col <= endColLoop; col++) {
         // Maybe some pieces of Tetromino are out of the board (invisible)
-        if (row < (BOARD_HEIGHT - 1)) {
+        if (row <= (BOARD_HEIGHT - 1)) {
           // Maybe some pieces of Tetromino are out of the board (invisible)
-          if (col >= 0 && col < (BOARD_WIDTH - 1)) {
+          if (col >= 0 && col <= (BOARD_WIDTH - 1)) {
             if (board[row][col] && shape[shapeRow][shapeColumn]) {
               moveAllowed = false;
               break;
@@ -282,7 +281,7 @@ describe('Board', () => {
 
         //       0              1             2             3
         // [[1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
-        const tetromino = new Tetromino({ type: TetrominoTypes.I, col: (BOARD_WIDTH - 1) - 4 });
+        const tetromino = new Tetromino({ type: TetrominoTypes.I, col: (BOARD_WIDTH - 1) - 3 });
 
         expect(canMoveRight(board, tetromino)).toBeFalsy();
       });
@@ -302,7 +301,7 @@ describe('Board', () => {
 
         //       0              1             2             3
         // [[1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
-        const tetromino = new Tetromino({ type: TetrominoTypes.I, col: (BOARD_WIDTH - 1) - 5 });
+        const tetromino = new Tetromino({ type: TetrominoTypes.I, col: (BOARD_WIDTH - 1) - 4 });
 
         expect(canMoveRight(board, tetromino)).toBeTruthy();
       });

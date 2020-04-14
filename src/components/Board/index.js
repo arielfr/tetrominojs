@@ -64,14 +64,84 @@ class Board extends PIXI.Container {
     this.update();
   }
 
+  canMove(board, tetromino, type) {
+    let shape = tetromino.shape;
+    let startRowLoop = tetromino.row;
+    let endRowLoop = (tetromino.row + (shape.length - 1));
+    let startColLoop = tetromino.col;
+    let endColLoop = (tetromino.col + shape.length);
+
+    if (type === 'DOWN') {
+      // Start row is going to be the last
+      startRowLoop = startRowLoop + 1;
+      endRowLoop = endRowLoop + 1;
+    }
+
+    if (type === 'LEFT') {
+      startColLoop = startColLoop - 1;
+      endColLoop = endColLoop - 1;
+    }
+
+    if (type === 'RIGHT') {
+      startColLoop = startColLoop + 1;
+      endColLoop = endColLoop + 1;
+    }
+
+    if (type === 'ROTATE') {
+      shape = tetromino.type.shapes[tetromino.nextRotation(1)];
+    }
+
+    let moveAllowed = true;
+    let shapeRow = 0;
+
+    for (let row = startRowLoop; row <= endRowLoop; row++) {
+      let shapeColumn = 0;
+
+      for (let col = startColLoop; col <= endColLoop; col++) {
+        // Maybe some pieces of Tetromino are out of the board (invisible)
+        if (row <= (BOARD_HEIGHT - 1)) {
+          // Maybe some pieces of Tetromino are out of the board (invisible)
+          if (col >= 0 && col <= (BOARD_WIDTH - 1)) {
+            if (board[row][col] && shape[shapeRow][shapeColumn]) {
+              moveAllowed = false;
+              break;
+            }
+          } else {
+            // Check Tetromino with shape get out of the Board
+            if (shape[shapeRow][shapeColumn]) {
+              moveAllowed = false;
+            }
+          }
+        } else {
+          // Check if one of the pieces of the Tetromino are going to be outside the Board
+          if (shape[shapeRow][shapeColumn]) {
+            moveAllowed = false;
+          }
+        }
+
+        shapeColumn++;
+      }
+
+
+      // If the movement is already restricted break the loop
+      if (!moveAllowed) {
+        break;
+      }
+
+      shapeRow++;
+    }
+
+    return moveAllowed;
+  };
+
   move(delta) {
     if (this.currTetromino) {
       if (delta === -1) {
-        if (this.canMoveLeft()) {
+        if (this.canMove(this.board, this.currTetromino, 'LEFT')) {
           this.currTetromino.move(delta);
         }
       } else {
-        if (this.canMoveRight()) {
+        if (this.canMove(this.board, this.currTetromino, 'RIGHT')) {
           this.currTetromino.move(delta);
         }
       }
@@ -79,210 +149,17 @@ class Board extends PIXI.Container {
   }
 
   rotate(delta) {
-    if (this.currTetromino && this.canRotate(delta)) {
+    if (this.canMove(this.board, this.currTetromino, 'ROTATE')) {
       this.currTetromino.rotate(delta);
     }
   }
 
   fall() {
-    if (this.currTetromino && this.canFall()) {
+    if (this.currTetromino && this.canMove(this.board, this.currTetromino, 'DOWN')) {
       this.currTetromino.fall();
     } else {
       this.fusion();
     }
-  }
-
-  canFall() {
-    const currShape = this.currTetromino.type.shapes[this.currTetromino.currRotation];
-
-    // Last row with value
-    let rowLastHit = null;
-
-    for (let row = currShape.length - 1; row >= 0; row--) {
-      for (let col = 0; col < currShape[row].length; col++) {
-        if (currShape[row][col]) {
-          rowLastHit = row;
-          break;
-        }
-      }
-
-      if (rowLastHit !== null) break;
-    }
-
-    const nextRow = (this.currTetromino.row + 1);
-
-    if ( nextRow + rowLastHit >= BOARD_HEIGHT ) {
-      return false;
-    }
-
-    let canFall = true;
-    let rowCheck = 0;
-
-    for (let row = nextRow; row <= (nextRow + rowLastHit); row++) {
-      let colCheck = 0;
-
-      for (let col = this.currTetromino.col; col < (this.currTetromino.col + this.currTetromino.type.size); col++) {
-        if (this.board[row][col] && currShape[rowCheck][colCheck]) {
-          canFall = false;
-          break;
-        }
-
-        colCheck++;
-      }
-
-      if (!canFall) {
-        break;
-      }
-
-      rowCheck++;
-    }
-
-    return canFall;
-  }
-
-  canMoveLeft() {
-    const currShape = this.currTetromino.type.shapes[this.currTetromino.currRotation];
-
-    let colFirstHit = null;
-
-    for (let row = 0; row < currShape.length; row++) {
-      for (let col = 0; col < currShape[row].length; col++) {
-        if (colFirstHit === null && currShape[row][col]) {
-          colFirstHit = col;
-          break;
-        } else if (currShape[row][col] && col < colFirstHit) {
-          colFirstHit = col;
-        }
-      }
-    }
-
-    let canMove = true;
-
-    if (!( this.currTetromino.col >= (0 - colFirstHit + 1) )) {
-      return false;
-    }
-
-    let rowCheck = 0;
-
-    for (let row = this.currTetromino.row; (row < (this.currTetromino.row + currShape.length) && row < BOARD_HEIGHT); row++) {
-      let colCheck = 0;
-
-      for (let col = (this.currTetromino.col - 1); col < (this.currTetromino.col + this.currTetromino.type.size - 1); col++) {
-        if (this.board[row][col] && currShape[rowCheck][colCheck]) {
-          canMove = false;
-          break;
-        }
-
-        colCheck++;
-      }
-
-      if (!canMove) {
-        break;
-      }
-
-      rowCheck++;
-    }
-
-    return canMove;
-  }
-
-  canMoveRight() {
-    const currShape = this.currTetromino.type.shapes[this.currTetromino.currRotation];
-
-    let colLastHit = null;
-
-    for (let row = 0; row < currShape.length; row++) {
-      for (let col = currShape[row].length; col >= 0; col--) {
-        if (colLastHit === null && currShape[row][col]) {
-          colLastHit = col;
-          break;
-        } else if (currShape[row][col] && col > colLastHit) {
-          colLastHit = col;
-        }
-      }
-    }
-
-    let canMove = true;
-
-    if (!( (this.currTetromino.col + 1 + colLastHit) < BOARD_WIDTH)) {
-      return false;
-    }
-
-    let rowCheck = 0;
-
-    for (let row = this.currTetromino.row; (row < (this.currTetromino.row + currShape.length) && row < BOARD_HEIGHT); row++) {
-      let colCheck = 0;
-
-      for (let col = this.currTetromino.col + 1; col < (this.currTetromino.col + this.currTetromino.type.size + 1); col++) {
-        if (this.board[row][col] && currShape[rowCheck][colCheck]) {
-          canMove = false;
-          break;
-        }
-
-        colCheck++;
-      }
-
-      if (!canMove) {
-        break;
-      }
-
-      rowCheck++;
-    }
-
-    return canMove;
-  }
-
-  canRotate(delta) {
-    const nextRotation = this.currTetromino.nextRotation(delta);
-    const currShape = this.currTetromino.type.shapes[nextRotation];
-
-    let colFirstHit = null;
-    let colLastHit = null;
-
-    for (let row = 0; row < currShape.length; row++) {
-      for (let col = 0; col < currShape[row].length; col++) {
-        if (colFirstHit === null && currShape[row][col]) {
-          colFirstHit = col;
-        } else if (currShape[row][col] && col < colFirstHit) {
-          colFirstHit = col;
-        }
-
-        if (colLastHit === null && currShape[row][col]) {
-          colLastHit = col;
-        } else if (currShape[row][col] && col > colLastHit) {
-          colLastHit = col;
-        }
-      }
-    }
-
-    if (!( (this.currTetromino.col >= (0 - colFirstHit)) && ( (this.currTetromino.col + colLastHit) < BOARD_WIDTH) )) {
-      return false;
-    }
-
-    let canMove = true;
-
-    let rowCheck = 0;
-
-    for (let row = this.currTetromino.row; (row < (this.currTetromino.row + currShape.length) && row < BOARD_HEIGHT); row++) {
-      let colCheck = 0;
-
-      for (let col = this.currTetromino.col; col < (this.currTetromino.col + this.currTetromino.type.size); col++) {
-        if (this.board[row][col] && currShape[rowCheck][colCheck]) {
-          canMove = false;
-          break;
-        }
-
-        colCheck++;
-      }
-
-      if (!canMove) {
-        break;
-      }
-
-      rowCheck++;
-    }
-
-    return canMove;
   }
 
   canSpawn() {
