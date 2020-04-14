@@ -16,17 +16,9 @@ const GameEngine = require('./index');
 
 describe('Board', () => {
   const createEmptyBoard = () => {
-    const grid = [];
-
-    for (let i = 0; i < BOARD_HEIGHT; i++) {
-      const row = [];
-
-      for (let i = 0; i < BOARD_WIDTH; i++) {
-        row.push(0);
-      }
-
-      grid.push(row);
-    }
+    const grid = new Array(BOARD_HEIGHT).fill(0).map(() =>
+      new Array(BOARD_WIDTH).fill(0)
+    );
 
     return {
       grid,

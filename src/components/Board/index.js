@@ -9,24 +9,12 @@ class Board extends PIXI.Container {
 
     this.grid = this.createEmptyBoard();
     this.boardEl = this.createEmptyBoard();
-
-    this.currTetromino = null;
   }
 
   createEmptyBoard() {
-    const board = [];
-
-    for (let i = 0; i < BOARD_HEIGHT; i++) {
-      const row = [];
-
-      for (let i = 0; i < BOARD_WIDTH; i++) {
-        row.push(0);
-      }
-
-      board.push(row);
-    }
-
-    return board;
+    return new Array(BOARD_HEIGHT).fill(0).map(() =>
+      new Array(BOARD_WIDTH).fill(0)
+    );
   }
 
   init() {
@@ -45,34 +33,35 @@ class Board extends PIXI.Container {
   }
 
   spawn(tetromino) {
-    this.currTetromino = tetromino;
-    this.update();
+    this.update(tetromino);
   }
 
-  merge() {
-    this.grid = this.getNewBoard();
+  merge(tetromino) {
+    this.grid = this.getGridWithTetromino(tetromino);
   }
 
-  update() {
-    this.draw(this.getNewBoard());
+  update(tetromino) {
+    this.draw(
+      this.getGridWithTetromino(tetromino)
+    );
   }
 
-  getNewBoard() {
+  getGridWithTetromino(tetromino) {
     const tempBoard = this.createEmptyBoard();
 
     let tetromRow = 0;
 
     for (let row = 0; row < this.grid.length; row++) {
-      let tetromCol = (this.currTetromino.col < 0) ? Math.abs(this.currTetromino.col) : 0;
+      let tetromCol = (tetromino.col < 0) ? Math.abs(tetromino.col) : 0;
       let found = false;
 
       for (let column = 0; column < this.grid[row].length; column++) {
         if (
-          row >= this.currTetromino.row && row < (this.currTetromino.row + this.currTetromino.type.size) &&
-          column >= this.currTetromino.col && column < (this.currTetromino.col + this.currTetromino.type.size)
+          row >= tetromino.row && row < (tetromino.row + tetromino.type.size) &&
+          column >= tetromino.col && column < (tetromino.col + tetromino.type.size)
         ) {
-          if ( this.currTetromino.type.shapes[this.currTetromino.currRotation][tetromRow][tetromCol] ) {
-            tempBoard[row][column] = this.currTetromino.type.texture;
+          if ( tetromino.type.shapes[tetromino.currRotation][tetromRow][tetromCol] ) {
+            tempBoard[row][column] = tetromino.type.texture;
           } else {
             tempBoard[row][column] = this.grid[row][column];
           }

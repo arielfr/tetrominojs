@@ -128,7 +128,7 @@ class GameEngine {
 
   fusion() {
     // Merge the Tetromino with the board
-    this.board.merge();
+    this.board.merge(this.currTetromino);
 
     const current = this.tetrominos.splice(0, 1);
     this.tetrominos.push(new Tetromino({}));
@@ -176,7 +176,7 @@ class GameEngine {
   }
 
   update() {
-    this.board.update();
+    this.board.update(this.currTetromino);
   }
 }
 
