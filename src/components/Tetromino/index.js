@@ -7,7 +7,6 @@ const { randomBetween } = require('../../libs/MathUtil');
  */
 class Tetromino {
   constructor({ row, col, type, rotation }) {
-    this.blocks = [];
     this.currRotation = (rotation !== undefined) ? rotation : 0;
     this.realRotation = this.currRotation;
     this.type = type || this.getRandomType();

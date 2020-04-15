@@ -9,6 +9,8 @@ class GamePlay extends BaseScreen {
     this.engine = new GameEngine({ resources: app.loader.resources, renderer: app.renderer });
 
     this.delaySpeed = 300;
+    // Speed of hard fall
+    this.hardFallDelaySpeed = 50;
     this.startDate = null;
 
     // Adding Background to Screen
@@ -52,7 +54,14 @@ class GamePlay extends BaseScreen {
         this.engine.move(1);
       }
 
-      if ( ((now - this.startDate) >= this.delaySpeed) || keyPress === Keyboard.KEYS.KEY_SPACE ) {
+      if ( ((now - this.startDate) >= this.hardFallDelaySpeed) && keyPress === Keyboard.KEYS.KEY_SPACE ) {
+        this.startDate = new Date();
+        const fusionMade = this.engine.fall();
+
+        if (fusionMade) {
+          Keyboard.unblockSpace();
+        }
+      }else if ((now - this.startDate) >= this.delaySpeed) {
         this.startDate = new Date();
 
         this.engine.fall();

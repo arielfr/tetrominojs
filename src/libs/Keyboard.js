@@ -1,9 +1,18 @@
+const KEYS = {
+  KEY_DOWN: 40,
+  KEY_UP: 38,
+  KEY_LEFT: 37,
+  KEY_RIGHT: 39,
+  KEY_SPACE: 32,
+};
+
 /**
  * Keyboard handler
  */
 class Keyboard {
   constructor() {
     this.key = null;
+    this.blockSpace = false;
 
     this.addEvents();
   }
@@ -11,12 +20,20 @@ class Keyboard {
   addEvents () {
     window.addEventListener('keydown', (event) => {
       if (this.key === null) {
-        this.key = event.keyCode;
+        if (event.keyCode !== KEYS.KEY_SPACE) {
+          this.key = event.keyCode;
+        } else if (!this.blockSpace) {
+          this.key = event.keyCode;
+        }
       }
     });
 
     window.addEventListener('keyup', (event) => {
       this.key = null;
+
+      if (event.keyCode === KEYS.KEY_SPACE) {
+        this.blockSpace = false;
+      }
     });
 
     return this;
@@ -25,10 +42,18 @@ class Keyboard {
   getKeyPress() {
     const keyPress = this.key;
 
-    // Once you get the key, remove it
-    this.key = null;
+    // Don't remove the space key
+    if (keyPress !== KEYS.KEY_SPACE) {
+      // Once you get the key, remove it
+      this.key = null;
+    }
 
     return keyPress;
+  }
+
+  unblockSpace() {
+    this.key = null;
+    this.blockSpace = true;
   }
 }
 
@@ -41,10 +66,4 @@ module.exports = new Keyboard();
 /**
  * Key Map
  */
-module.exports.KEYS = {
-  KEY_DOWN: 40,
-  KEY_UP: 38,
-  KEY_LEFT: 37,
-  KEY_RIGHT: 39,
-  KEY_SPACE: 32,
-};
+module.exports.KEYS = KEYS;

@@ -97,11 +97,16 @@ class GameEngine {
   }
 
   fall() {
+    let fusionMade = false;
+
     if (this.currTetromino && this.canMove(this.currTetromino, 'DOWN')) {
       this.currTetromino.fall();
     } else {
       this.fusion();
+      fusionMade = true;
     }
+
+    return fusionMade;
   }
 
   move(delta) {
