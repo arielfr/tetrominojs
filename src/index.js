@@ -4,12 +4,17 @@ const Game = require('./Game');
 
 window.onload = function () {
   const app = new PIXI.Application({
-    width: 400,
-    height: 700,
+    width: 768,
+    height: 736,
     backgroundColor: 0x1099bb,
     resolution: 1,
   });
 
+  app.loader.add('background', 'images/screen/background.png');
+  app.loader.add('board-border', 'images/screen/board-border.png');
+  app.loader.add('board-corner', 'images/screen/board-corner.png');
+  app.loader.add('score-border', 'images/screen/score-border.png');
+  app.loader.add('score-corner', 'images/screen/score-corner.png');
   app.loader.add('block-empty', 'images/empty.png');
   app.loader.add('block-i', 'images/I.png');
   app.loader.add('block-j', 'images/J.png');

@@ -22,8 +22,6 @@ class GameEngine {
       this.tetrominos.push(new Tetromino({}));
     }
 
-    this.board.init();
-
     // Spawn First Tetromino
     this.board.spawn(this.currTetromino);
   }

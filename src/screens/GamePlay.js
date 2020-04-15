@@ -6,12 +6,22 @@ class GamePlay extends BaseScreen {
   constructor(app) {
     super();
 
-    this.engine = new GameEngine({ resources: app.loader.resources });
+    this.engine = new GameEngine({ resources: app.loader.resources, renderer: app.renderer });
 
     this.delaySpeed = 300;
     this.startDate = null;
 
+    // Adding Background to Screen
+    const background = new PIXI.TilingSprite(
+      app.loader.resources.background.texture,
+      app.renderer.width,
+      app.renderer.height);
+
+    this.addChild(background);
     this.addChild(this.engine.board);
+
+    this.engine.board.position.x = Math.ceil(160);
+    this.engine.board.position.y = Math.ceil(32);
   }
 
   /**

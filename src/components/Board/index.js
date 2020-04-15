@@ -9,6 +9,65 @@ class Board extends PIXI.Container {
 
     this.grid = this.createEmptyBoard();
     this.visibleGrid = this.createEmptyBoard();
+    this.createGraphicalContainer();
+
+    // Create board container
+    this.board = new PIXI.Container();
+
+    // Set position
+    this.board.position.x = 32;
+    this.board.position.y = 32;
+
+    this.init();
+  }
+
+  createGraphicalContainer() {
+    const maxHeight = (BOARD_HEIGHT + 1);
+    const maxWidth = (BOARD_WIDTH + 1);
+
+    for (let row = 0; row <= maxHeight; row++) {
+      for (let column = 0; column <= maxWidth; column++) {
+        if ((row === 0 ||row === maxHeight) || (column === 0 || column === maxWidth)) {
+          let rowBlock = new Block(this.res['board-border'].texture, BLOCK_SIZE);
+
+          if (row === 0 && column === 0) {
+            rowBlock.el.texture = this.res['board-corner'].texture;
+          } else if (row === 0 && column === maxWidth) {
+            rowBlock.el.texture = this.res['board-corner'].texture;
+
+            rowBlock.el.anchor.x = 1;
+            rowBlock.el.scale.x *= -1;
+          } else if (row === maxHeight && column === 0) {
+            rowBlock.el.texture = this.res['board-corner'].texture;
+
+            rowBlock.el.anchor.y = 1;
+            rowBlock.el.scale.y *= -1;
+          } else if (row === maxHeight && column === maxWidth) {
+            rowBlock.el.texture = this.res['board-corner'].texture;
+
+            rowBlock.el.anchor.x = 1;
+            rowBlock.el.scale.x *= -1;
+            rowBlock.el.anchor.y = 1;
+            rowBlock.el.scale.y *= -1;
+          } else if (row === maxHeight) {
+            rowBlock.el.anchor.y = 1;
+            rowBlock.el.scale.y *= -1;
+          } else if (column === 0) {
+            rowBlock.el.angle = -90;
+            rowBlock.el.pivot.set(BLOCK_SIZE, 0);
+          } else if (column === maxWidth) {
+            rowBlock.el.angle = 90;
+            rowBlock.el.pivot.set(0, BLOCK_SIZE);
+          }
+
+          // Modify Position
+          rowBlock.el.position.x = column * BLOCK_SIZE;
+          rowBlock.el.position.y = row * BLOCK_SIZE;
+
+          this.addChild(rowBlock.el);
+        }
+      }
+    }
   }
 
   createEmptyBoard() {
@@ -27,9 +86,12 @@ class Board extends PIXI.Container {
         block.el.position.y = row * BLOCK_SIZE;
 
         this.visibleGrid[row][column] = block.el;
-        this.addChild(block.el);
+        this.board.addChild(block.el);
       }
     }
+
+    // Add board to the container
+    this.addChild(this.board);
   }
 
   spawn(tetromino) {
