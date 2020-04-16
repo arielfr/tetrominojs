@@ -2,7 +2,7 @@ const { BLOCK_SIZE, NEXT_WIDTH, NEXT_HEIGHT, FONT_SIZE } = require('../../consta
 const Block = require('../Block');
 
 class Next extends PIXI.Container {
-  constructor({ resources, tetromino }) {
+  constructor({ resources }) {
     super();
 
     this.res = resources;
