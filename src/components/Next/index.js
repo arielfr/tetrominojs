@@ -27,19 +27,19 @@ class Next extends PIXI.Container {
           let rowBlock = new Block(this.res['score-border'].texture, BLOCK_SIZE);
 
           if (row === 0 && column === 0) {
-            rowBlock.el.texture = this.res['score-corner'].texture;
+            rowBlock.el.texture = this.res['board-corner'].texture;
           } else if (row === 0 && column === maxWidth) {
-            rowBlock.el.texture = this.res['score-corner'].texture;
+            rowBlock.el.texture = this.res['board-corner'].texture;
 
             rowBlock.el.anchor.x = 1;
             rowBlock.el.scale.x *= -1;
           } else if (row === maxHeight && column === 0) {
-            rowBlock.el.texture = this.res['score-corner'].texture;
+            rowBlock.el.texture = this.res['board-corner'].texture;
 
             rowBlock.el.anchor.y = 1;
             rowBlock.el.scale.y *= -1;
           } else if (row === maxHeight && column === maxWidth) {
-            rowBlock.el.texture = this.res['score-corner'].texture;
+            rowBlock.el.texture = this.res['board-corner'].texture;
 
             rowBlock.el.anchor.x = 1;
             rowBlock.el.scale.x *= -1;
