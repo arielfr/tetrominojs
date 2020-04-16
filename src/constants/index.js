@@ -1,4 +1,5 @@
 module.exports = {
+  FONT_FAMILY: 'Press Start 2P',
   FONT_SIZE: 22,
   // Block
   BLOCK_SIZE: 32,

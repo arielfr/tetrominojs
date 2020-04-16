@@ -1,4 +1,4 @@
-const { BLOCK_SIZE, NEXT_WIDTH, NEXT_HEIGHT, FONT_SIZE } = require('../../constants');
+const { BLOCK_SIZE, NEXT_WIDTH, NEXT_HEIGHT, FONT_SIZE, FONT_FAMILY } = require('../../constants');
 const Block = require('../Block');
 
 class Next extends PIXI.Container {
@@ -76,7 +76,7 @@ class Next extends PIXI.Container {
 
   addTitle() {
     let title = new PIXI.Text(this.title, {
-      fontFamily: '8bit',
+      fontFamily: FONT_FAMILY,
       fontSize: `${FONT_SIZE}px`,
       align: 'right',
       fill: '#ffffff',

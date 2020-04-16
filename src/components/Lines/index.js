@@ -1,4 +1,4 @@
-const { BLOCK_SIZE, LINES_WIDTH, LINES_HEIGHT, FONT_SIZE } = require('../../constants');
+const { BLOCK_SIZE, LINES_WIDTH, LINES_HEIGHT, FONT_SIZE, FONT_FAMILY } = require('../../constants');
 const Block = require('../Block');
 
 class Lines extends PIXI.Container {
@@ -78,7 +78,7 @@ class Lines extends PIXI.Container {
 
   addTitle() {
     let title = new PIXI.Text(this.title, {
-      fontFamily: '8bit',
+      fontFamily: FONT_FAMILY,
       fontSize: `${FONT_SIZE}px`,
       align: 'right',
       fill: '#ffffff',
@@ -92,7 +92,7 @@ class Lines extends PIXI.Container {
 
   addLines() {
     let score = new PIXI.Text(`${this.number}`, {
-      fontFamily: '8bit',
+      fontFamily: FONT_FAMILY,
       fontSize: `${FONT_SIZE}px`,
       align: 'right',
       fill: '#ffffff',
