@@ -115,7 +115,7 @@ class Next extends PIXI.Container {
     }
 
     container.position.x = (BLOCK_SIZE * (NEXT_WIDTH - 2)) - (container.width / 2);
-    container.position.y = (BLOCK_SIZE * (NEXT_HEIGHT - 2)) - (container.height / 2) + (this.titleEl.height);
+    container.position.y = (BLOCK_SIZE * (NEXT_HEIGHT - 2)) - (container.height / 2) + (this.titleEl.height) + this.padding;
 
     this.tetromino = container;
 
