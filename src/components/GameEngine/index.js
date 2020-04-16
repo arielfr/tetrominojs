@@ -6,6 +6,7 @@ const Score = require('../Score');
 class GameEngine {
   constructor({ board, resources }) {
     // Can pass board for testing
+    this.level = 0;
     this.board = board || new Board({ resources });
     this.score = new Score({ resources });
     this.gameOver = false;
@@ -142,7 +143,9 @@ class GameEngine {
     this.tetrominos.push(new Tetromino({}));
     this.currTetromino = current[0];
 
-    this.checkForLines();
+    const lines = this.checkForLines();
+
+    this.score.calculate(this.level, lines);
 
     this.board.spawn(this.currTetromino);
 
@@ -181,6 +184,8 @@ class GameEngine {
     }
 
     this.board.grid = newBoard;
+
+    return fullLines.length;
   }
 
   update() {

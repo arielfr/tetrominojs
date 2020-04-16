@@ -1,4 +1,4 @@
-const { BLOCK_SIZE, SCORE_WIDTH, SCORE_HEIGHT } = require('../../constants');
+const { BLOCK_SIZE, SCORE_WIDTH, SCORE_HEIGHT, FONT_SIZE } = require('../../constants');
 const Block = require('../Block');
 
 class Score extends PIXI.Container {
@@ -11,6 +11,15 @@ class Score extends PIXI.Container {
     this.score = 0;
     this.maxScore = 999999999;
     this.padding = 5;
+    // Points based on lines made
+    this.points = {
+      1: 40,
+      2: 100,
+      3: 300,
+      4: 1200,
+    };
+
+    this.scoreEl = null;
 
     this.createGraphicalContainer();
     this.addTitle();
@@ -77,7 +86,7 @@ class Score extends PIXI.Container {
   addTitle() {
     let title = new PIXI.Text(this.title, {
       fontFamily: '8bit',
-      fontSize: '20px',
+      fontSize: `${FONT_SIZE}px`,
       align: 'right',
       fill: '#ffffff',
     });
@@ -91,7 +100,7 @@ class Score extends PIXI.Container {
   addScore() {
     let score = new PIXI.Text(`${this.score}`, {
       fontFamily: '8bit',
-      fontSize: '20px',
+      fontSize: `${FONT_SIZE}px`,
       align: 'right',
       fill: '#ffffff',
     });
@@ -103,7 +112,18 @@ class Score extends PIXI.Container {
     // score.position.x = (BLOCK_SIZE * SCORE_WIDTH) + (score.width) - BLOCK_SIZE - this.padding;
     score.position.y = (BLOCK_SIZE * 2) + this.padding;
 
+    this.scoreEl = score;
+
     this.addChild(score);
+  }
+
+  calculate(level, lines) {
+    const levelMultiply = level + 1;
+
+    if (lines > 0) {
+      this.score = this.score + (this.points[lines] * levelMultiply);
+      this.scoreEl.text = this.score;
+    }
   }
 }
 

@@ -4,4 +4,5 @@ module.exports = {
   BOARD_WIDTH: 10,
   SCORE_HEIGHT: 2,
   SCORE_WIDTH: 6,
+  FONT_SIZE: 22,
 };
