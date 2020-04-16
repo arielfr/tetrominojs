@@ -1,3 +1,4 @@
+const { BLOCK_SIZE, SCORE_HEIGHT } = require('../constants');
 const BaseScreen = require('./BaseScreen');
 const Keyboard = require('../libs/Keyboard');
 const GameEngine = require('../components/GameEngine');
@@ -22,12 +23,16 @@ class GamePlay extends BaseScreen {
     this.addChild(background);
     this.addChild(this.engine.board);
     this.addChild(this.engine.score);
+    this.addChild(this.engine.next);
 
-    this.engine.board.position.x = 160;
-    this.engine.board.position.y = 32;
+    this.engine.board.position.x = BLOCK_SIZE * 4;
+    this.engine.board.position.y = BLOCK_SIZE;
 
-    this.engine.score.position.x = 544;
-    this.engine.score.position.y = 32;
+    this.engine.score.position.x = BLOCK_SIZE * 16;
+    this.engine.score.position.y = BLOCK_SIZE;
+
+    this.engine.next.position.x = BLOCK_SIZE * 16;
+    this.engine.next.position.y = this.engine.score.position.y + (BLOCK_SIZE * SCORE_HEIGHT) + (BLOCK_SIZE * 2);
   }
 
   /**

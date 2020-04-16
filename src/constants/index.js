@@ -1,8 +1,10 @@
 module.exports = {
+  FONT_SIZE: 22,
   BLOCK_SIZE: 32,
   BOARD_HEIGHT: 20,
   BOARD_WIDTH: 10,
   SCORE_HEIGHT: 2,
   SCORE_WIDTH: 6,
-  FONT_SIZE: 22,
+  NEXT_HEIGHT: 5,
+  NEXT_WIDTH: 6,
 };

@@ -2,13 +2,17 @@ const { BOARD_HEIGHT, BOARD_WIDTH } = require('../../constants');
 const Tetromino = require('../Tetromino');
 const Board = require('../Board');
 const Score = require('../Score');
+const Next = require('../Next');
 
 class GameEngine {
   constructor({ board, resources }) {
     // Can pass board for testing
     this.level = 0;
+
     this.board = board || new Board({ resources });
     this.score = new Score({ resources });
+    this.next = new Next({ resources });
+
     this.gameOver = false;
     this.gameOverStartDate = new Date();
     this.gameOverDelaySpeed = 50;
@@ -30,6 +34,9 @@ class GameEngine {
 
     // Spawn First Tetromino
     this.board.spawn(this.currTetromino);
+
+    // Update Next Tetromino
+    this.next.addTetromino(this.tetrominos[0]);
   }
 
   canMove(tetromino, type) {
@@ -148,6 +155,9 @@ class GameEngine {
     this.score.calculate(this.level, lines);
 
     this.board.spawn(this.currTetromino);
+
+    // Update Next Tetromino
+    this.next.addTetromino(this.tetrominos[0]);
 
     // If you can't move the spawn element is game over
     if (!this.canMove(this.currTetromino)) {
