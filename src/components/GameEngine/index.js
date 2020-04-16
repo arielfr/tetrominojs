@@ -5,6 +5,7 @@ const Score = require('../Score');
 const Next = require('../Next');
 const Level = require('../Level');
 const Lines = require('../Lines');
+const Instructions = require('../Instructions');
 
 class GameEngine {
   constructor({ board, resources }) {
@@ -13,6 +14,7 @@ class GameEngine {
     this.next = new Next({ resources });
     this.level = new Level({ resources });
     this.lines = new Lines({ resources });
+    this.instructions = new Instructions({ resources });
 
     this.gameOver = false;
     this.gameOverStartDate = new Date();

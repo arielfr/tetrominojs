@@ -18,4 +18,7 @@ module.exports = {
   // Next
   NEXT_HEIGHT: 5,
   NEXT_WIDTH: 6,
+  // Instructions
+  INSTRUCTIONS_HEIGHT: 8,
+  INSTRUCTIONS_WIDTH: 8,
 };

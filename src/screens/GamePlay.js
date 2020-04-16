@@ -1,4 +1,4 @@
-const { BLOCK_SIZE, LINES_HEIGHT, SCORE_HEIGHT } = require('../constants');
+const { BLOCK_SIZE, LINES_HEIGHT, SCORE_HEIGHT, INSTRUCTIONS_WIDTH } = require('../constants');
 const BaseScreen = require('./BaseScreen');
 const Keyboard = require('../libs/Keyboard');
 const GameEngine = require('../components/GameEngine');
@@ -25,20 +25,24 @@ class GamePlay extends BaseScreen {
     this.addChild(this.engine.score);
     this.addChild(this.engine.next);
     this.addChild(this.engine.level);
+    this.addChild(this.engine.instructions);
 
-    this.engine.lines.position.x = BLOCK_SIZE * 4;
+    this.engine.instructions.position.x = BLOCK_SIZE;
+    this.engine.instructions.position.y = BLOCK_SIZE * 4;
+
+    this.engine.lines.position.x = (BLOCK_SIZE * 3) + (BLOCK_SIZE * INSTRUCTIONS_WIDTH);
     this.engine.lines.position.y = BLOCK_SIZE;
 
-    this.engine.board.position.x = BLOCK_SIZE * 4;
+    this.engine.board.position.x = (BLOCK_SIZE * 3) + (BLOCK_SIZE * INSTRUCTIONS_WIDTH);
     this.engine.board.position.y = (this.engine.lines.position.y + (BLOCK_SIZE * LINES_HEIGHT) + (BLOCK_SIZE * 2));
 
-    this.engine.score.position.x = BLOCK_SIZE * 16;
+    this.engine.score.position.x = (BLOCK_SIZE * 15) + (BLOCK_SIZE * INSTRUCTIONS_WIDTH);
     this.engine.score.position.y = BLOCK_SIZE;
 
-    this.engine.next.position.x = BLOCK_SIZE * 16;
+    this.engine.next.position.x =(BLOCK_SIZE * 15) + (BLOCK_SIZE * INSTRUCTIONS_WIDTH);
     this.engine.next.position.y = this.engine.score.position.y + (BLOCK_SIZE * SCORE_HEIGHT) + (BLOCK_SIZE * 2);
 
-    this.engine.level.position.x = BLOCK_SIZE * 16;
+    this.engine.level.position.x = (BLOCK_SIZE * 15) + (BLOCK_SIZE * INSTRUCTIONS_WIDTH);
     this.engine.level.position.y = this.engine.score.position.y + this.engine.next.position.y + (BLOCK_SIZE * SCORE_HEIGHT) + (BLOCK_SIZE * 4);
   }
 

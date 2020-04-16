@@ -4,7 +4,7 @@ const Game = require('./Game');
 
 window.onload = function () {
   const app = new PIXI.Application({
-    width: 864,
+    width: 1024,
     height: 864,
     backgroundColor: 0x000000,
     resolution: 1,
