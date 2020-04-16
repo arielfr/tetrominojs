@@ -21,9 +21,13 @@ class GamePlay extends BaseScreen {
 
     this.addChild(background);
     this.addChild(this.engine.board);
+    this.addChild(this.engine.score);
 
-    this.engine.board.position.x = Math.ceil(160);
-    this.engine.board.position.y = Math.ceil(32);
+    this.engine.board.position.x = 160;
+    this.engine.board.position.y = 32;
+
+    this.engine.score.position.x = 544;
+    this.engine.score.position.y = 32;
   }
 
   /**

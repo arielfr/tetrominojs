@@ -2,4 +2,6 @@ module.exports = {
   BLOCK_SIZE: 32,
   BOARD_HEIGHT: 20,
   BOARD_WIDTH: 10,
+  SCORE_HEIGHT: 2,
+  SCORE_WIDTH: 6,
 };

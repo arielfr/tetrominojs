@@ -28,7 +28,7 @@ class Board extends PIXI.Container {
 
     for (let row = 0; row <= maxHeight; row++) {
       for (let column = 0; column <= maxWidth; column++) {
-        if ((row === 0 ||row === maxHeight) || (column === 0 || column === maxWidth)) {
+        if ((row === 0 || row === maxHeight) || (column === 0 || column === maxWidth)) {
           let rowBlock = new Block(this.res['board-border'].texture, BLOCK_SIZE);
 
           if (row === 0 && column === 0) {

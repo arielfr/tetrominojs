@@ -1,11 +1,13 @@
 const { BOARD_HEIGHT, BOARD_WIDTH } = require('../../constants');
 const Tetromino = require('../Tetromino');
 const Board = require('../Board');
+const Score = require('../Score');
 
 class GameEngine {
   constructor({ board, resources }) {
     // Can pass board for testing
     this.board = board || new Board({ resources });
+    this.score = new Score({ resources });
     this.gameOver = false;
     this.gameOverStartDate = new Date();
     this.gameOverDelaySpeed = 50;
