@@ -6,7 +6,7 @@ window.onload = function () {
   const app = new PIXI.Application({
     width: 768,
     height: 736,
-    backgroundColor: 0x1099bb,
+    backgroundColor: 0x000000,
     resolution: 1,
   });
 

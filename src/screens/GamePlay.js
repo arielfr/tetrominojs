@@ -8,7 +8,7 @@ class GamePlay extends BaseScreen {
 
     this.engine = new GameEngine({ resources: app.loader.resources });
 
-    this.delaySpeed = 300;
+    this.delaySpeed = 1000;
     // Speed of hard fall
     this.hardFallDelaySpeed = 50;
     this.startDate = null;
