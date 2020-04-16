@@ -4,7 +4,7 @@
 
 Classic Tetris game created using [PixiJS](https://pixijs.io/)
 
-<img src="/docs/screen.png?raw=true" width="198" height="400" />
+<img src="/docs/screen.png?raw=true" width="351" height="352" />
 
 ## Play it
 
