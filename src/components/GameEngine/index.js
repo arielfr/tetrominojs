@@ -3,20 +3,24 @@ const Tetromino = require('../Tetromino');
 const Board = require('../Board');
 const Score = require('../Score');
 const Next = require('../Next');
+const Level = require('../Level');
+const Lines = require('../Lines');
 
 class GameEngine {
   constructor({ board, resources }) {
-    // Can pass board for testing
-    this.level = 0;
-
     this.board = board || new Board({ resources });
     this.score = new Score({ resources });
     this.next = new Next({ resources });
+    this.level = new Level({ resources });
+    this.lines = new Lines({ resources });
 
     this.gameOver = false;
     this.gameOverStartDate = new Date();
     this.gameOverDelaySpeed = 50;
     this.gameOverAnimationActive = true;
+
+    this.gameSpeed = 1000;
+    this.hardFallDelaySpeed = 50;
 
     this.MOVEMENT_TYPES = {
       ROTATE: 'ROTATE',
@@ -152,7 +156,13 @@ class GameEngine {
 
     const lines = this.checkForLines();
 
-    this.score.calculate(this.level, lines);
+    this.score.calculate(this.level.number, lines);
+    this.lines.increase(lines);
+
+    if (lines !== 0 && this.lines.number % 10 === 0) {
+      this.level.increase();
+      this.gameSpeed = this.gameSpeed - 50;
+    }
 
     this.board.spawn(this.currTetromino);
 

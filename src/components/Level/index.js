@@ -1,34 +1,27 @@
-const { BLOCK_SIZE, SCORE_WIDTH, SCORE_HEIGHT, FONT_SIZE } = require('../../constants');
+const { BLOCK_SIZE, LEVEL_WIDTH, LEVEL_HEIGHT, FONT_SIZE } = require('../../constants');
 const Block = require('../Block');
 
-class Score extends PIXI.Container {
+class Level extends PIXI.Container {
   constructor({ resources }) {
     super();
 
     this.res = resources;
 
-    this.title = 'SCORE';
-    this.score = 0;
-    this.maxScore = 999999999;
+    this.title = 'LEVEL';
+    this.number = 0;
     this.padding = 5;
-    // Points based on lines made
-    this.points = {
-      1: 40,
-      2: 100,
-      3: 300,
-      4: 1200,
-    };
 
-    this.scoreEl = null;
+    this.levelEl = null;
 
     this.createGraphicalContainer();
+
     this.addTitle();
-    this.addScore();
+    this.addLevel();
   }
 
   createGraphicalContainer() {
-    const maxHeight = (SCORE_HEIGHT + 1);
-    const maxWidth = (SCORE_WIDTH + 1);
+    const maxHeight = (LEVEL_HEIGHT + 1);
+    const maxWidth = (LEVEL_WIDTH + 1);
 
     for (let row = 0; row <= maxHeight; row++) {
       for (let column = 0; column <= maxWidth; column++) {
@@ -97,8 +90,8 @@ class Score extends PIXI.Container {
     this.addChild(title);
   }
 
-  addScore() {
-    let score = new PIXI.Text(`${this.score}`, {
+  addLevel() {
+    let score = new PIXI.Text(`${this.number}`, {
       fontFamily: '8bit',
       fontSize: `${FONT_SIZE}px`,
       align: 'right',
@@ -107,22 +100,18 @@ class Score extends PIXI.Container {
 
     score.anchor.set(1, 0);
 
-    score.position.x = (BLOCK_SIZE * SCORE_WIDTH) + BLOCK_SIZE - this.padding;
+    score.position.x = (BLOCK_SIZE * LEVEL_WIDTH) + BLOCK_SIZE - this.padding;
     score.position.y = (BLOCK_SIZE * 2) + this.padding;
 
-    this.scoreEl = score;
+    this.levelEl = score;
 
     this.addChild(score);
   }
 
-  calculate(level, lines) {
-    const levelMultiply = level + 1;
-
-    if (lines > 0) {
-      this.score = this.score + (this.points[lines] * levelMultiply);
-      this.scoreEl.text = this.score;
-    }
+  increase() {
+    this.number = this.number + 1;
+    this.levelEl.text = this.number;
   }
 }
 
-module.exports = Score;
+module.exports = Level;
