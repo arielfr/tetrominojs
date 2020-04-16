@@ -7,6 +7,9 @@ class GameEngine {
     // Can pass board for testing
     this.board = board || new Board({ resources });
     this.gameOver = false;
+    this.gameOverStartDate = new Date();
+    this.gameOverDelaySpeed = 50;
+    this.gameOverAnimationActive = true;
 
     this.MOVEMENT_TYPES = {
       ROTATE: 'ROTATE',
@@ -179,7 +182,22 @@ class GameEngine {
   }
 
   update() {
-    this.board.update(this.currTetromino);
+    if (this.gameOver) {
+      if (this.gameOverAnimationActive) {
+        const now = new Date();
+
+        if ((now - this.gameOverStartDate) >= this.gameOverDelaySpeed) {
+          const rowComplete = this.board.completeEmptyRowWithRandomBlocks();
+          this.gameOverStartDate = new Date();
+
+          if (rowComplete === 0) {
+            this.gameOverAnimationActive = false;
+          }
+        }
+      }
+    } else {
+      this.board.update(this.currTetromino);
+    }
   }
 }
 

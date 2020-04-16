@@ -18,7 +18,7 @@ class Tetromino {
   }
 
   getRandomType() {
-    const rand = randomBetween(1, 7) - 1;
+    const rand = randomBetween(1, Object.keys(types).length) - 1;
     return types[Object.keys(types)[rand]];
   }
 

@@ -66,9 +66,9 @@ class GamePlay extends BaseScreen {
 
         this.engine.fall();
       }
-
-      this.engine.update();
     }
+
+    this.engine.update();
   }
 }
 

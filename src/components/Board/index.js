@@ -1,4 +1,5 @@
 const { BLOCK_SIZE, BOARD_WIDTH, BOARD_HEIGHT } = require('../../constants');
+const Tetromino = require('../Tetromino');
 const Block = require('../Block');
 
 class Board extends PIXI.Container {
@@ -151,6 +152,34 @@ class Board extends PIXI.Container {
         }
       }
     }
+  }
+
+  completeEmptyRowWithRandomBlocks() {
+    let rowFull = (this.grid.length - 1);
+
+    for (let row = rowFull; row >= 0; row--) {
+      let isFull = true;
+
+      for (let column = 0; column < this.grid[row].length; column++) {
+        if (this.grid[row][column] === 0) {
+          isFull = false;
+        }
+      }
+
+      if (!isFull) {
+        for (let column = 0; column < this.grid[row].length; column++) {
+          const randomTetromino = new Tetromino({});
+          this.visibleGrid[row][column].texture = this.res[randomTetromino.type.texture].texture;
+          this.grid[row][column] = randomTetromino.type.texture;
+
+          rowFull = row;
+        }
+
+        break;
+      }
+    }
+
+    return rowFull;
   }
 }
 
